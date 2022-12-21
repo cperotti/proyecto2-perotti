@@ -5,17 +5,9 @@
           <h3 class="p-3">Carrito de compras</h3>
       <div class="row">
         <div class="col-9">
-          <shopping-cart-component @enviarDatosProductos="[...dataProductos, ...$event]" />
+          <shopping-cart-component />
         </div>
-        <div class="card col-3" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">Resumen de compra</h5>
-            <div class="card-text">
-              <p v-for="(producto, index) in dataProductos" :key="index">{{producto.name}}</p>
-            </div>
-            <button type="button" class="btn btn-success">Finalizar compra</button>
-          </div>
-        </div>
+        <shopping-cart-resume-component />
       </div>
     </div>
   </section>
@@ -25,12 +17,14 @@
 // @ is an alias to /src
 import ShoppingCartComponent from '@/components/ShoppingCartComponent.vue'
 import HeaderComponent from '@/components/HeaderComponent.vue'
+import ShoppingCartResumeComponent from '@/components/ShoppingCartResumeComponent.vue'
 
 export default {
   name: 'ShoppingCartView',
   components: {
     ShoppingCartComponent,
-    HeaderComponent
+    HeaderComponent,
+    ShoppingCartResumeComponent,
   },
   data() {
     return {

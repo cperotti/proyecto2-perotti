@@ -23,11 +23,6 @@ export default {
     props:{
         producto: Object,
     },
-    data() {
-        return {
-            
-        }
-    },
     methods:{
         irADetalle(id){
             this.$router.push(`/productos/${this.$route.params.producto}/${id}`)

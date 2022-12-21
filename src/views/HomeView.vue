@@ -4,27 +4,7 @@
         <div class="d-flex justify-content-center align-items-center flex-column home-container">
           <h1 class="mb-0 pb-3">Bienvenid@ {{dataUser.firstName}}</h1>
           <div class="row">
-            <div class="col p-3">
-            <div @click="irAProducto('plantas')" class="card border-success card-style">
-                <div class="card-body d-flex justify-content-center align-items-center">
-                    <h3 class="card-title">Plantas</h3>
-                </div>
-            </div>
-          </div>
-          <div class="col p-3">
-            <div @click="irAProducto('semillas')" class="card border-success card-style">
-                <div class="card-body d-flex justify-content-center align-items-center">
-                    <h3 class="card-title">Semillas</h3>
-                </div>
-            </div>
-          </div>
-          <div class="col p-3">
-            <div @click="irAProducto('herramientas')" class="card border-success card-style">
-                <div class="card-body d-flex justify-content-center align-items-center">
-                    <h3 class="card-title">Herramientas</h3>
-                </div>
-            </div>
-          </div>
+            <cards-type-product-component v-for="(type) in listTypeProducts" :key="type.id" :type="type" />
           </div>
           </div>
     </section>
@@ -33,14 +13,31 @@
 <script>
 import axios from 'axios';
 import HeaderComponent from '@/components/HeaderComponent.vue'
-// @ is an alias to /src
+import CardsTypeProductComponent from '@/components/CardsTypeProductComponent.vue'
 
 export default {
-  components: { HeaderComponent },
+  components: { 
+    HeaderComponent,
+    CardsTypeProductComponent,
+   },
   name: 'HomeView',
   data() {
     return {
-      dataUser:{}
+      dataUser:{},
+      listTypeProducts:[
+        {
+          id: 'plantas',
+          name: 'Plantas'
+        },
+         {
+          id: 'semillas',
+          name: 'Semillas'
+        },
+         {
+          id: 'herramientas',
+          name: 'Herramientas'
+        }
+      ]
     }
   },
   created(){
@@ -53,9 +50,6 @@ export default {
     logOut(){
         this.$router.push('/')
     },
-    irAProducto(prod){
-      this.$router.push(`/productos/${prod}`)
-    }
   }
 }
 </script>
@@ -64,12 +58,5 @@ export default {
 .home-container{
   width: 100%;
   height: 90vh;
-}
-.card-style{
-  width: 20rem; 
-  height: 25rem;
-}
-div.card:hover{
-  cursor: pointer;
 }
 </style>

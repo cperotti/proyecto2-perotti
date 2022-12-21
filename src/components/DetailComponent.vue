@@ -14,12 +14,12 @@
                     <div class="accordion accordion-flush" id="accordionFlushExample">
                         <div class="accordion-item" v-for="(detalle, index) in detalleProducto.detail" :key="index">
                             <h2 class="accordion-header" :id="index">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" :data-bs-target="`#${detalle.title}`" aria-expanded="false" :aria-controls="`${detalle.title}`">
-                                {{detalle.title}}
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" :data-bs-target="`#${detalle.titulo}`" aria-expanded="false" :aria-controls="`${detalle.titulo}`">
+                                {{detalle.titulo}}
                             </button>
                             </h2>
-                            <div :id="`${detalle.title}`" class="accordion-collapse collapse" :aria-labelledby="index" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">{{detalle.description}}</div>
+                            <div :id="`${detalle.titulo}`" class="accordion-collapse collapse" :aria-labelledby="index" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">{{detalle.descripcion}}</div>
                         </div>
                         </div>
                     </div>

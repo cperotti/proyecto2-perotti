@@ -30,7 +30,6 @@ export default {
     name:'ShoppingCartComponent',
     data() {
         return {
-            cant:1,
             carrito:[]
         }
     },
@@ -40,13 +39,7 @@ export default {
                 this.carrito = [...response.data]
             })
     },
-    mounted(){
-         this.$emit("enviarDatosProductos", this.carrito)
-    },
     methods:{
-        calcularPrecio(precio, cantidad){
-            precio*cantidad
-        },
         decrementar(id){
             this.carrito.map((el) => {
                 if(el.id === id){
@@ -66,7 +59,6 @@ export default {
                     return{
                         ...el,
                         cantidad: cant,
-                        precio: el.precio * cant
                     }
                 }
                 return el
