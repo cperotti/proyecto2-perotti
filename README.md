@@ -1,4 +1,4 @@
-# 1er-proyecto-final-perotti
+# Proyecto final Perotti
 
 ## Project setup
 ```
