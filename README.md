@@ -1,5 +1,10 @@
 # Proyecto final Perotti
 
+## usuario creado para ingresar
+
+- usuario: carop@gmail.com
+- contraseña: cp123
+
 ## Project setup
 ```
 npm install
