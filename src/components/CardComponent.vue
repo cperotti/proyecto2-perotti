@@ -1,14 +1,13 @@
 <template>
-    <div class="col p-3">
-        <div class="card" style="width: 25rem;">
-            <img :src="producto.imagen" class="card-img-top imagen" alt="img">
-            <p class="card-text"><small class="text-muted"><a :href="producto.autorLink">Imagen de rawpixel.com</a> en Freepik</small></p>
+    <div class="col">
+        <div class="card h-70">
+            <img :src="producto.image" class="card-img-top imagen" alt="img">
             <div class="card-body">
                 <h5 class="card-title">{{producto.name}}</h5>
                 <p class="card-text">Precio ${{producto.price}}</p>
                 <div class="d-flex justify-content-between">
                 <button @click="irADetalle(producto.id)" type="button" class="btn btn-outline-success">Ver detalle</button>
-                <button @click="irAlCarrito" type="button" class="btn btn-success">Añadir al carrito</button>
+                <button @click="irAlCarrito(producto)" type="button" class="btn btn-success">Añadir al carrito</button>
                 </div>
             </div>
         </div>

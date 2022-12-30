@@ -1,10 +1,9 @@
 <template>
     <div class="p-3">
-        <div class="card mb-3">
+        <div class="card h-70">
             <div class="row g-0">
                 <div class="col-md-6 d-flex justify-content-center align-items-center flex-column">
-                <img :src="detalleProducto.imagen" class="img-fluid rounded-start imagen-detail" alt="img">
-                <p class="card-text"><small class="text-muted"><a :href="detalleProducto.autorLink">Imagen de rawpixel.com</a> en Freepik</small></p>
+                <img :src="detalleProducto.image" class="img-fluid rounded-start imagen-detail" alt="img">
                 </div>
                 <div class="col-md-6">
                 <div class="card-body d-grid gap-2">

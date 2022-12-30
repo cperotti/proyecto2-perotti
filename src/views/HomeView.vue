@@ -1,43 +1,24 @@
 <template>
     <section class="section-detail">
-        <header-component/>
-        <div class="d-flex justify-content-center align-items-center flex-column home-container">
-          <h1 class="mb-0 pb-3">Bienvenid@ {{dataUser.firstName}}</h1>
-          <div class="row">
-            <cards-type-product-component v-for="(type) in listTypeProducts" :key="type.id" :type="type" />
-          </div>
-          </div>
+       <header-component/>
+       <div class="container home-container">
+        <h1 class="text-center mb-0 pb-3">Bienvenid@ {{dataUser.firstName}}👋</h1>
+       </div>
     </section>
 </template>
 
 <script>
 import axios from 'axios';
 import HeaderComponent from '@/components/HeaderComponent.vue'
-import CardsTypeProductComponent from '@/components/CardsTypeProductComponent.vue'
 
 export default {
-  components: { 
-    HeaderComponent,
-    CardsTypeProductComponent,
-   },
   name: 'HomeView',
+  components:{
+    HeaderComponent,
+  },
   data() {
     return {
       dataUser:{},
-      listTypeProducts:[
-        {
-          id: 'plantas',
-          name: 'Plantas'
-        },
-         {
-          id: 'semillas',
-          name: 'Semillas'
-        },
-         {
-          id: 'herramientas',
-          name: 'Herramientas'
-        }
-      ]
     }
   },
   created(){
@@ -46,17 +27,15 @@ export default {
           this.dataUser = {...response.data.find((user)=> user.id === localStorage.getItem('user'))}
       })
   },
-  methods:{
-    logOut(){
-        this.$router.push('/')
-    },
-  }
 }
 </script>
 
 <style scoped>
-.home-container{
+.section-detail{
   width: 100%;
-  height: 90vh;
+  height: 100%;
+}
+.home-container{
+  padding: 24px;
 }
 </style>

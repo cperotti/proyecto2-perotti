@@ -1,7 +1,8 @@
 <template>
 <section class="section-detail">
-  <div class="container">
-   <login-component />
+  <div class="container d-flex justify-content-center flex-column">
+      <h1 class="text-center pb-5">🌳GardenSHOP🌳</h1>
+      <login-component />
   </div>
 </section>
 </template>
@@ -19,5 +20,7 @@ export default {
 </script>
 
 <style scoped>
-
+.section-detail{
+  padding: 60px 30px;
+}
 </style>

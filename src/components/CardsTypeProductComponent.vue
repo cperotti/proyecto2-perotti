@@ -1,11 +1,12 @@
 <template>
-  <div class="col p-3">
-        <div @click="irAProducto(type.id)" class="card border-success card-style">
-            <div class="card-body d-flex justify-content-center align-items-center">
-                <h3 class="card-title">{{type.name}}</h3>
-            </div>
-        </div>
+<div class="col">
+    <div @click="irAProducto(type.id)" class="card h-100">
+      <img src="https://previews.123rf.com/images/olyaperpetuummobile/olyaperpetuummobile1712/olyaperpetuummobile171200002/90834622-monochrome-funny-garden-seamless-pattern-dark-green-color-outline-on-white-background-cartoon-doodle.jpg" class="card-img-top" alt="">
+      <div class="card-body">
+        <h5 class="card-title text-center">{{type.name}}</h5>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -23,10 +24,6 @@ export default {
 </script>
 
 <style scope>
-.card-style{
-  width: 20rem; 
-  height: 25rem;
-}
 div.card:hover{
   cursor: pointer;
 }

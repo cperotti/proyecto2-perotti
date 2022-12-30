@@ -1,14 +1,22 @@
 <template>
   <section class="section-detail">
         <header-component />
-        <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><router-link to="/home">Productos</router-link></li>
-        <li class="breadcrumb-item active" aria-current="page">{{this.$route.params.producto}}</li>
-      </ol>
-    </nav>
-        <div class="container d-grid gap-3">
-        <list-component />
+        <div class="container">
+          <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><router-link to="/productos">Productos</router-link></li>
+          <li class="breadcrumb-item active" aria-current="page">{{this.$route.params.producto}}</li>
+        </ol>
+      </nav>
+      <div class="row justify-content-end">
+        <div class="col-2 p-3">
+          <input class="form-control" type="search" placeholder="Buscar" aria-label="Search">
+        </div>
+      </div>
+        <!-- <div class="row row-cols-1 row-cols-md-3 g-4"> -->
+          <div class="container">
+          <list-component />
+          </div>
         </div>
   </section>
 </template>
@@ -26,3 +34,11 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.section-detail{
+  width: 100%;
+  height: 100%;
+  padding-bottom: 24px;
+}
+</style>

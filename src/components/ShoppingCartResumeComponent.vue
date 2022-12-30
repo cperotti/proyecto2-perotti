@@ -1,5 +1,5 @@
 <template>
-  <div class="card col-3" style="width: 18rem;">
+  <div class="card">
         <div class="card-body">
         <h5 class="card-title">Resumen de compra</h5>
         <div class="card-text">

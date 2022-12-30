@@ -1,8 +1,8 @@
 <template>
-    <div class="container gap-3 d-flex justify-content-center align-items-center flex-column container-login">
-    <div class="card p-2" style="min-width: 30rem;">
+    <div class="container gap-3 d-flex justify-content-center align-items-center flex-column container-register">
+    <div class="card" style="min-width: 30rem;">
         <div class="card-header d-flex justify-content-center">
-        Registrarte
+        Registro
         </div>
         <div class="card-body">
             <form @submit.prevent="validarRegistro">
@@ -36,6 +36,7 @@
                     <label for="admin" class="form-check-label">Administrador</label>
                 </div>
                 <div class="d-flex justify-content-end">
+                    <button @click="irALogin" type="button" class="btn btn-link">Volver al login</button>
                     <button type="submit" class="btn btn-success">Registrarte</button>
                 </div>
             </form>
@@ -87,20 +88,21 @@ export default {
             }
         },
         passwordRepeat(nuevo){
-            if(nuevo && this.errorsRegistro.passwordRepeat){
-                if(this.password !== nuevo){
-                    this.errorsRegistro = {...this.errorsRegistro, passwordRepeat:'La contraseña no coincide con la que ingresaste'}
-                }else{
-                    this.errorsRegistro = {...this.errorsRegistro, passwordRepeat:''} 
-                }
-
+            if(this.password !== nuevo){
+                this.errorsRegistro = {...this.errorsRegistro, passwordRepeat:'La contraseña no coincide con la que ingresaste'}
+            }else{
+                this.errorsRegistro = {...this.errorsRegistro, passwordRepeat:''} 
             }
         }
     },
     methods:{
+        irALogin(){
+            this.$router.push('/')
+        },
         validarRegistro(){
 
-            if(this.firstName && this.lastName && this.email && this.password && this.passwordRepeat){
+            if((this.firstName && this.lastName && this.email && this.password && this.passwordRepeat) && (this.password === this.passwordRepeat)){
+                console.log('entre al if')
                 const URLPOST = 'https://639e6cf43542a261305b9ed0.mockapi.io/usuarios'
                 axios.post(URLPOST,{
                     firstName: this.firstName,
@@ -141,4 +143,8 @@ export default {
 </script>
 
 <style scope>
+.container-register{
+    width: 100%;
+    height: 100%;
+}
 </style>

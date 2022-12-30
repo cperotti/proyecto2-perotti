@@ -1,11 +1,6 @@
 <template>
     <div>
-        <div v-if="productos.length > 0" class="row justify-content-end">
-            <div class="col-2 p-3">
-                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-            </div>
-        </div>
-        <div v-if="productos.length > 0" class="row">
+        <div v-if="productos.length > 0" class="row row-cols-1 row-cols-md-3 g-4">
             <card-component v-for="(producto) in productos" :key="producto.id" :producto="producto" />
         </div>
         <div v-else class="d-flex justify-content-center align-items-center p-3">

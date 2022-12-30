@@ -1,6 +1,6 @@
 <template>
     <div class="container gap-3 d-flex justify-content-center align-items-center flex-column container-login">
-    <div class="card p-2" style="min-width: 30rem;">
+    <div class="card" style="min-width: 25rem;">
         <div class="card-header d-flex justify-content-center">
         Iniciar sesion
         </div>
@@ -88,8 +88,7 @@ export default {
 
 <style scope>
 .container-login{
-    padding: 60px 30px;
     width: 100%;
-    height: 100vh;
+    height: 100%;
 }
 </style>
