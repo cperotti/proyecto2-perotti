@@ -40,6 +40,16 @@ const routes = [
     name: 'carrito',
     component: () => import(/* webpackChunkName: "about" */ '../views/ShoppingCartView.vue')
   },
+  {
+    path: '/secciones',
+    name: 'secciones',
+    component: () => import(/* webpackChunkName: "about" */ '../views/SectionsView.vue')
+  },
+  {
+    path: '/secciones/:section',
+    name: 'seccion',
+    component: () => import(/* webpackChunkName: "about" */ '../views/SectionsView.vue')
+  },
   { 
     path: '*', 
     name:'Not found',
