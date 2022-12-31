@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div v-if="productos.length > 0" class="row row-cols-1 row-cols-md-3 g-4">
-            <card-component v-for="(producto) in productos" :key="producto.id" :producto="producto" />
+        <div v-if="filterProductsSection.length > 0" class="row row-cols-1 row-cols-md-3 g-4">
+            <card-component v-for="(producto) in filterProductsSection" :key="producto.id" :producto="producto" />
         </div>
         <div v-else class="d-flex justify-content-center align-items-center p-3">
             Aun no hay datos para mostrar
@@ -11,26 +11,25 @@
 
 <script>
 import CardComponent from './CardComponent.vue'
-import axios from 'axios';
-/*import planta1 from './../assets/planta1.jpg'
-import planta2 from './../assets/planta2.jpg'
-import planta3 from './../assets/planta3.jpg'*/
+import { mapActions, mapGetters } from 'vuex';
+
 
 export default {
   components: { CardComponent },
     name: 'ListComponent',
-    data() {
-        return {
-            productos: []
+    created(){
+        this.fetchProductsList()
+    },
+    computed:{
+        ...mapGetters(['getProductsList']),
+        filterProductsSection(){
+            const dataProduct = this.getProductsList.filter((el)=> el.type === this.$route.params.producto)
+            return dataProduct
         }
     },
-    created(){
-        const URLGET = "https://639e6cf43542a261305b9ed0.mockapi.io/productos"
-        axios.get(URLGET).then((response)=>{
-            console.log(response)
-            this.productos = response.data.filter((el)=> el.type === this.$route.params.producto)
-        })
-    },
+    methods:{
+        ...mapActions(['fetchProductsList']),
+    }
 }
 </script>
 

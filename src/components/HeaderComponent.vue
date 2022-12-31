@@ -14,12 +14,6 @@
                         <li class="nav-item">
                             <router-link :to="`/productos`" class="nav-link" aria-current="page">Productos</router-link>
                         </li>
-                        <!-- <li class="nav-item dropdown">
-                            <a href="#" role="button" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Productos</a>
-                            <ul class="dropdown-menu">
-                                <li v-for="(producto,index) in productos" :key="index"><router-link :to="`/productos/${producto.title.toLowerCase()}`" class="dropdown-item">{{producto.title}}</router-link></li>
-                            </ul>
-                        </li> -->
                     </ul>
                     <div @click="irAlCarrito" class="pe-4 contenedor-icono">
                         <router-link :to="`/carrito`" class="nav-link" aria-current="page"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">

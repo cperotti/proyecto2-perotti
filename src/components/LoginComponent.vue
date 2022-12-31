@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import {mapActions, mapGetters, mapMutations} from 'vuex'
 export default {
     name: 'LoginComponent',
     data() {
@@ -55,20 +55,19 @@ export default {
         }
     },
     created(){
-        localStorage.setItem('user', null)
+        this.fetchUsersList()
     },
     methods:{
+        ...mapActions(['fetchUsersList']),
+        ...mapGetters(['getUsersList']),
+        ...mapMutations(['setUserLogged']),
         validarLogin(){
             if(this.email && this.password){
-                const URLGET = 'https://639e6cf43542a261305b9ed0.mockapi.io/usuarios'
-                axios.get(URLGET).then((response)=>{
-                    console.log(response)
-                    const dataUser = response.data.find((user)=> user.email === this.email && user.password === this.password)
+                    const dataUser = this.getUsersList().find((user)=> user.email === this.email && user.password === this.password)
                     if(dataUser){
                         this.$router.push('/home')
-                        localStorage.setItem('user', dataUser.id)
+                        this.setUserLogged(dataUser)
                     }
-                })
             }
 
             if(!this.email){

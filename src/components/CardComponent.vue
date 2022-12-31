@@ -16,25 +16,25 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { mapActions } from 'vuex';
 export default {
     name:'CardComponent',
     props:{
         producto: Object,
     },
     methods:{
+        ...mapActions(['addShoppingCartItem']),
         irADetalle(id){
             this.$router.push(`/productos/${this.$route.params.producto}/${id}`)
         },
         irAlCarrito(producto){
-            const URLPOST = 'https://639e6cf43542a261305b9ed0.mockapi.io/carrito'
-                axios.post(URLPOST,{
+            const dataItem = {
                     id: producto.id,
                     name: producto.name,
                     price: producto.price,
                     cant: 1,
-                }).then(()=> this.$router.push(`/carrito`))
-                .catch((error)=> console.log(error))
+                }
+            this.addShoppingCartItem({dataItem, urlPush: this.$router.push(`/carrito`)})
         }
     }
 }

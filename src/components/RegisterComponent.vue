@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { mapActions } from 'vuex';
 export default {
     name: 'RegisterComponents',
     data() {
@@ -96,22 +96,21 @@ export default {
         }
     },
     methods:{
+        ...mapActions(['saveUserRegister']),
         irALogin(){
             this.$router.push('/')
         },
         validarRegistro(){
 
             if((this.firstName && this.lastName && this.email && this.password && this.passwordRepeat) && (this.password === this.passwordRepeat)){
-                console.log('entre al if')
-                const URLPOST = 'https://639e6cf43542a261305b9ed0.mockapi.io/usuarios'
-                axios.post(URLPOST,{
+                const dataUser = {
                     firstName: this.firstName,
                     lastName: this.lastName,
                     email: this.email,
                     password: this.password,
                     isAdmin: this.isAdmin,
-                }).then(()=> this.$router.push('/'))
-                .catch((error)=> console.log(error))
+                }
+                    this.saveUserRegister({dataUser, urlPush:this.$router.push('/')})
             }
 
             if(!this.firstName){
