@@ -14,6 +14,9 @@
                         <li v-if="!getUserLogged.isAdmin" class="nav-item">
                             <router-link :to="`/productos`" class="nav-link" aria-current="page">Productos</router-link>
                         </li>
+                        <li v-else class="nav-item">
+                            <router-link :to="`/secciones`" class="nav-link" aria-current="page">Secciones</router-link>
+                        </li>
                     </ul>
                     <div class="pe-3">
                        ¡Hola {{getUserLogged.firstName}}!

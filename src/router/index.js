@@ -48,7 +48,7 @@ const routes = [
   {
     path: '/secciones/:section',
     name: 'seccion',
-    component: () => import(/* webpackChunkName: "about" */ '../views/SectionsView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/ListSectionsView.vue')
   },
   { 
     path: '*', 

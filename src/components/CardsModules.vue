@@ -1,6 +1,6 @@
 <template>
   <div class="col">
-    <div @click="irASeccion" class="card h-100">
+    <div @click="irASeccion(modulo.id)" class="card h-100">
       <img :src="modulo.image" class="card-img-top" alt="">
       <div class="card-body">
         <h5 class="card-title text-center">{{modulo.name}}</h5>
@@ -16,8 +16,8 @@ export default {
         modulo: Object
     },
     methods:{
-        irASeccion(){
-            this.$router.push(`/secciones`)
+        irASeccion(mod){
+            this.$router.push(`/secciones/${mod}`)
         }
     }
 }
