@@ -22,6 +22,8 @@
                         </div>
                         </div>
                     </div>
+                    <h5>Precio</h5>
+                    <p>${{getProductDetail.price}}</p>
                     <button @click="comprar(getProductDetail)" type="button" class="btn btn-success">Añadir al carrito</button>
                 </div>
                 </div>
@@ -48,7 +50,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
     name:'DetailComponent',
     data() {
@@ -60,10 +62,11 @@ export default {
         this.fetchProductDetail(this.$route.params.id)
     },
     computed:{
-        ...mapGetters(['getProductDetail'])
+        ...mapGetters('productModule',['getProductDetail'])
     },
     methods:{
-        ...mapActions(['fetchProductDetail', 'addShoppingCartItem']),
+        ...mapMutations('shoppingCartModule',['addShoppingCartItem']),
+        ...mapActions('productModule',['fetchProductDetail']),
         comprar(producto){
             const dataItem = {
                     id: producto.id,
@@ -71,7 +74,8 @@ export default {
                     price: producto.price,
                     cant: 1,
                 }
-            this.addShoppingCartItem({dataItem, urlPush: this.$router.push(`/carrito`)})
+            this.addShoppingCartItem(dataItem)
+            this.$router.push(`/carrito`)
             
         }
     }

@@ -58,9 +58,9 @@ export default {
         this.fetchUsersList()
     },
     methods:{
-        ...mapActions(['fetchUsersList']),
-        ...mapGetters(['getUsersList']),
-        ...mapMutations(['setUserLogged']),
+        ...mapActions('userModule',['fetchUsersList']),
+        ...mapGetters('userModule',['getUsersList']),
+        ...mapMutations('userModule',['setUserLogged']),
         validarLogin(){
             if(this.email && this.password){
                     const dataUser = this.getUsersList().find((user)=> user.email === this.email && user.password === this.password)

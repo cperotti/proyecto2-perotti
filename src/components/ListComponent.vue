@@ -21,14 +21,14 @@ export default {
         this.fetchProductsList()
     },
     computed:{
-        ...mapGetters(['getProductsList']),
+    ...mapGetters('productModule',['getProductsList']),
         filterProductsSection(){
             const dataProduct = this.getProductsList.filter((el)=> el.type === this.$route.params.producto)
             return dataProduct
         }
     },
     methods:{
-        ...mapActions(['fetchProductsList']),
+        ...mapActions('productModule',['fetchProductsList']),
     }
 }
 </script>

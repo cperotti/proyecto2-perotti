@@ -59,7 +59,7 @@ export default {
         }
     },
     computed:{
-        ...mapGetters(['getUserLogged']),
+        ...mapGetters('userModule',['getUserLogged']),
     },
     methods:{
         logOut(){

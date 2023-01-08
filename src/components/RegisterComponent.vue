@@ -96,7 +96,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['saveUserRegister']),
+        ...mapActions('userModule',['saveUserRegister']),
         irALogin(){
             this.$router.push('/')
         },

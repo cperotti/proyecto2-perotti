@@ -16,14 +16,14 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapMutations } from 'vuex';
 export default {
     name:'CardComponent',
     props:{
         producto: Object,
     },
     methods:{
-        ...mapActions(['addShoppingCartItem']),
+    ...mapMutations('shoppingCartModule',['addShoppingCartItem']),
         irADetalle(id){
             this.$router.push(`/productos/${this.$route.params.producto}/${id}`)
         },
@@ -34,7 +34,8 @@ export default {
                     price: producto.price,
                     cant: 1,
                 }
-            this.addShoppingCartItem({dataItem, urlPush: this.$router.push(`/carrito`)})
+            this.addShoppingCartItem(dataItem)
+            this.$router.push(`/carrito`)
         }
     }
 }

@@ -16,10 +16,10 @@ export default {
         this.fetchProductDetail(this.$route.params.id)
     },
     computed:{
-        ...mapGetters(['getProductDetail'])
+        ...mapGetters('productModule',['getProductDetail'])
     },
     methods:{
-        ...mapActions(['fetchProductDetail'])
+    ...mapActions('productModule',['fetchProductDetail'])
     }
 }
 </script>

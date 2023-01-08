@@ -119,7 +119,9 @@ export default {
         // this.fetchShoppingCartList() //ver si es otro endpoint de cuando finaliza la compra el usuario
     },
     computed:{
-        ...mapGetters(['getProductsList', 'getUsersList', 'getShoppingCartList']),
+    ...mapGetters('shoppingCartModule',['getShoppingCartList']),
+        ...mapGetters('productModule',['getProductsList']),
+        ...mapGetters('userModule',['getUsersList']),
         renderImagen(){
             if(this.infoProducto.image){
                 return this.infoProducto.image
@@ -129,7 +131,9 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['fetchProductsList', 'fetchUsersList', 'fetchShoppingCartList']),
+        ...mapActions('shoppingCartModule',['fetchShoppingCartList']),
+        ...mapActions('productModule',['fetchProductsList']),
+        ...mapActions('userModule',['fetchUsersList']),
         eliminarProducto(){
             console.log('Eliminar productos')
         },
