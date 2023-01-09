@@ -51,11 +51,9 @@ export default {
             this.getShoppingCartList.map((el) => {
                 if(el.id === id){
                     let cant  = el.cant--
-                    let precio = parseInt(el.price)/parseInt(cant)
                     return{
                         ...el,
-                        ...(el.cant > 1 && {cant}),
-                        price:precio
+                        ...(el.cant > 1 && {cant})
                     }
                 }
                 return el
