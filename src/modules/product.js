@@ -21,6 +21,9 @@ export default{
         loadProductDetail(state,productDetail){
           state.productDetail= productDetail
         },
+        data(state,data){
+          console.log(state, data)
+        }
       },
       actions: {
         fetchProductsList: ({commit}) => {
@@ -35,5 +38,17 @@ export default{
                 commit('loadProductDetail',response.data)
             })
         },
+        editProduct: ({commit}, data)=>{
+          const URLPUT= `https://639e6cf43542a261305b9ed0.mockapi.io/productos/${data.param}`
+          axios.put(URLPUT, data.productChanges).then((response)=>{
+            commit('data', response.data)
+          })
+        },
+        deleteProduct: ({commit}, id) =>{
+          const URLDELETE = `https://639e6cf43542a261305b9ed0.mockapi.io/productos/${id}`
+          axios.delete(URLDELETE).then((response)=>{
+            commit('data', response.data)
+          })
+        }
     }
 }

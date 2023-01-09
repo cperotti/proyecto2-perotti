@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import userModule from '@/modules/user'
 import productModule from '@/modules/product'
 import shoppingCartModule from '@/modules/shoppingCart'
+import ordersModule from '@/modules/orders'
 
 Vue.use(Vuex)
 
@@ -18,6 +19,7 @@ export default new Vuex.Store({
   modules: {
     userModule,
     productModule,
-    shoppingCartModule
+    shoppingCartModule,
+    ordersModule
   }
 })
