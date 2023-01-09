@@ -8,7 +8,7 @@
                     <th>Informacion suario</th>
                     <th>Direccion</th>
                     <th>Total</th>
-                    <th>Estado</th>
+                    <th>Enregado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -20,7 +20,7 @@
                     <td>{{order.infoUser}}</td>
                     <td>{{ order.adress }}</td>
                     <td>${{ order.total }}</td>
-                    <td>{{ order.status }}</td>
+                    <td>{{ order.delivered }}</td>
                     <td>
                         <div class="d-flex justify-content-between">
                             <div class="contenedor-icono" @click="eliminarProducto(order.id)">

@@ -14,6 +14,9 @@ export default{
         loadOrdersList(state,ordersList){
           state.ordersList= ordersList
         },
+        postData(state, data){
+          console.log(state, data)
+        }
       },
       actions: {
         fetchOrdersList: ({commit}) => {
@@ -22,5 +25,11 @@ export default{
                 commit('loadOrdersList', response.data)
             })
         },
+        addNewItem: ({commit}, data) => {
+          const URLPOST = 'https://639e6cf43542a261305b9ed0.mockapi.io/pedidos'
+          axios.post(URLPOST,data).then((response)=> {
+            commit('postData',response)
+          })
+        }
     }
 }

@@ -22,6 +22,9 @@ export default{
         },
         deleteShoppingCartItem(state, idItem){
             state.shoppingCartList = state.shoppingCartList.filter((el)=> el.id !== idItem)
+        },
+        resetShoppingCart(state){
+          state.shoppingCartList = []
         }
       },
       actions: {
