@@ -13,12 +13,13 @@
           <input class="form-control" type="search" placeholder="Buscar" aria-label="Search">
         </div>
         <div class="col-2">
-            <button type="button" class="btn btn-success">Agregar nuevo</button>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModalAdd">Agregar nuevo</button>
         </div>
       </div>
           <div class="container">
           <list-sections />
           </div>
+            <pueba-modal />
         </div>
   </section>
 </template>
@@ -27,12 +28,14 @@
 // @ is an alias to /src
 import ListSections from '@/components/ListSections.vue'
 import HeaderComponent from '@/components/HeaderComponent.vue'
+import PuebaModal from '@/components/PuebaModal.vue'
 
 export default {
   name: 'ListView',
   components: {
     ListSections,
-    HeaderComponent
+    HeaderComponent,
+    PuebaModal,
   },
 }
 </script>

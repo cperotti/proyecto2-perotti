@@ -94,7 +94,7 @@ export default {
                 const dataAux = {
                     order: this.getShoppingCartList,
                     adress: this.adress,
-                    infoUser: this.getUserLogged.id,
+                    infoUser: this.getUserLogged.email,
                     delivered: false,
                     total: this.calcularTotal
                 }

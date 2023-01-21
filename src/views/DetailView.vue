@@ -1,8 +1,8 @@
 <template>
   <section class="section-detail">
     <header-component />
-    <breadcum-component/>
     <div class="container d-grid gap-3">
+      <breadcum-component/>
       <detail-component />
     </div>
   </section>
