@@ -17,14 +17,21 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   components: { CardComponent },
     name: 'ListComponent',
+    data() {
+        return {
+            dataProduct:[]
+        }
+    },
     created(){
         this.fetchProductsList()
     },
+    props:{
+        elementoABuscar: String,
+    },
     computed:{
-    ...mapGetters('productModule',['getProductsList']),
+        ...mapGetters('productModule',['getProductsList']),
         filterProductsSection(){
-            const dataProduct = this.getProductsList.filter((el)=> el.type === this.$route.params.producto)
-            return dataProduct
+            return this.getProductsList.filter((el)=> el.type === this.$route.params.producto && el.name.toLowerCase().includes(this.elementoABuscar))
         }
     },
     methods:{

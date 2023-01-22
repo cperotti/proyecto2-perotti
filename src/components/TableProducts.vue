@@ -1,5 +1,11 @@
 <template>
     <div>
+        <div v-if="showSuccessAlert" class="alert alert-success" role="alert">
+           El producto se editó con éxito!!
+        </div>
+        <div v-if="showDangerAlert" class="alert alert-danger" role="alert">
+           No se ha podido editar el producto. Por favor volvé a intentarlo
+        </div>
   <table class="table table-light table-bordered">
             <thead>
                 <tr>
@@ -136,7 +142,9 @@ export default {
                 type:'',
                 detail:'',
                 description:'',
-            }
+            },
+            showSuccessAlert:false,
+            showDangerAlert:false
         }
     },
     created(){
@@ -222,8 +230,21 @@ export default {
                     description:this.description,
                     detail: this.detail,
                 }
-                this.editProduct({param: this.idProducto, productChanges:dataAux})
-                // this.fetchProductsList()
+                this.editProduct({
+                    param: this.idProducto, 
+                    productChanges:dataAux
+                }).then(()=> {
+                this.showSuccessAlert=true
+             setTimeout(() => {
+                Object.assign(this.$data, this.$options.data())
+                }, 3000);
+            })
+            .catch(()=>{
+            this.showDangerAlert=true
+            setTimeout(() => {
+                Object.assign(this.$data, this.$options.data())
+                }, 3000);
+            })
             }
         }
     }

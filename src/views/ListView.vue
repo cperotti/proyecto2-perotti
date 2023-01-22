@@ -9,12 +9,12 @@
         </ol>
       </nav>
       <div class="row justify-content-end">
-        <div class="col-2 p-3">
-          <input class="form-control" type="search" placeholder="Buscar" aria-label="Search">
+        <div class="col-2 pb-3">
+          <search-component @enviarElementoBuscado="elementoABuscar=$event" />
         </div>
       </div>
           <div class="container">
-          <list-component />
+          <list-component :elementoABuscar="elementoABuscar" />
           </div>
         </div>
   </section>
@@ -24,12 +24,19 @@
 // @ is an alias to /src
 import ListComponent from '@/components/ListComponent.vue'
 import HeaderComponent from '@/components/HeaderComponent.vue'
+import SearchComponent from '@/components/SearchComponent.vue'
 
 export default {
   name: 'ListView',
   components: {
     ListComponent,
-    HeaderComponent
+    HeaderComponent,
+    SearchComponent
+  },
+  data() {
+    return {
+      elementoABuscar:''
+    }
   },
 }
 </script>

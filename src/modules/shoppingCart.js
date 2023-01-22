@@ -4,11 +4,15 @@ export default{
     namespaced:true,
     state: {
         shoppingCartList: [],
+        countItems:0
       },
       getters: {
         getShoppingCartList(state){
           return state.shoppingCartList
         },
+        getCountItems(state){
+          return state.countItems
+        }
       },
       mutations: {
         // loadShoppingCartList(state,shoppingCartList){
@@ -19,13 +23,16 @@ export default{
         // },
         addShoppingCartItem(state, dataItem){
             state.shoppingCartList = [...state.shoppingCartList,dataItem]
+            state.countItems++
         },
         deleteShoppingCartItem(state, idItem){
             state.shoppingCartList = state.shoppingCartList.filter((el)=> el.id !== idItem)
+            state.countItems--
         },
         resetShoppingCart(state){
           state.shoppingCartList = []
-        }
+          state.countItems=0
+        },
       },
       actions: {
         // fetchShoppingCartList: ({commit}) => {

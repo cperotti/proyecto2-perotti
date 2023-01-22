@@ -49,6 +49,12 @@ export default{
           axios.delete(URLDELETE).then((response)=>{
             commit('data', response.data)
           })
+        },
+        sendComent: ({commit}, data)=>{
+          const URLPUT= `https://639e6cf43542a261305b9ed0.mockapi.io/productos/${data.param}`
+          axios.put(URLPUT, data.productChanges).then((response)=>{
+            commit('data', response.data)
+          })
         }
     }
 }

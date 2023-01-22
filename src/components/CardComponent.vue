@@ -35,7 +35,7 @@ export default {
                     cant: 1,
                 }
             this.addShoppingCartItem(dataItem)
-            this.$router.push(`/carrito`)
+            //this.$router.push(`/carrito`)
         }
     }
 }
