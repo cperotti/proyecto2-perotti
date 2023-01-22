@@ -43,8 +43,9 @@ export default {
 
 <style scoped>
 .section-detail{
+  padding: 56px ;
   width: 100%;
   height: 100%;
-  padding-bottom: 24px;
+  /*padding-bottom: 24px;*/
 }
 </style>

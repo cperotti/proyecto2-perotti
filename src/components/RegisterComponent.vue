@@ -1,5 +1,11 @@
 <template>
     <div class="container gap-3 d-flex justify-content-center align-items-center flex-column container-register">
+        <div v-if="showSuccessAlert" class="alert alert-success" role="alert">
+           El registro se realizó correctamente. Redirigiendo a Login..
+        </div>
+        <div v-if="showDangerAlert" class="alert alert-danger" role="alert">
+           No se ha podido realizar el registro. Por favor volvé a intentarlo
+        </div>
     <div class="card" style="min-width: 30rem;">
         <div class="card-header d-flex justify-content-center">
         Registro
@@ -37,7 +43,7 @@
                 </div>
                 <div class="d-flex justify-content-end">
                     <button @click="irALogin" type="button" class="btn btn-link">Volver al login</button>
-                    <button type="submit" class="btn btn-success">Registrarte</button>
+                    <button type="submit" :disabled="showSuccessAlert"  class="btn btn-success">Registrarte</button>
                 </div>
             </form>
         </div>
@@ -57,6 +63,8 @@ export default {
             password:'',
             passwordRepeat:'',
             isAdmin:false,
+            showSuccessAlert:false,
+            showDangerAlert:false,
             errorsRegistro:{
                 firstName:'',
                 lastName:'',
@@ -110,7 +118,20 @@ export default {
                     password: this.password,
                     isAdmin: this.isAdmin,
                 }
-                    this.saveUserRegister({dataUser, urlPush:this.$router.push('/')})
+                    this.saveUserRegister(dataUser)
+                    .then(()=>{
+                        this.showSuccessAlert=true
+                        setTimeout(() => {
+                            this.$router.push('/')
+                            Object.assign(this.$data, this.$options.data())
+                        }, 3000);
+                    })
+                    .catch(()=>{
+                        this.showDangerAlert=true
+                        setTimeout(() => {
+                            Object.assign(this.$data, this.$options.data())
+                        }, 3000);
+                    })
             }
 
             if(!this.firstName){

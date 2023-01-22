@@ -33,9 +33,8 @@ export default {
         //consultar los post si estan bien implementados
         saveUserRegister: ({commit},data) =>{
           const URLPOST = 'https://639e6cf43542a261305b9ed0.mockapi.io/usuarios'
-          axios.post(URLPOST,data.dataUser).then((response)=> {
+          axios.post(URLPOST,data).then((response)=> {
             commit('postData',response)
-            data.urlPush
           })
         },
     

@@ -10,7 +10,10 @@
                               <p>{{ item.name }}</p>
                           </div>
                           <div class="col-4">
-                              <p>${{ item.price }}</p>
+                            <div class="d-flex flex-row">
+                              <p class="pe-2">${{ item.price }}</p>
+                              <p v-if="item.cant > 1"><small>x {{item.cant}}</small></p>
+                            </div>
                           </div>
                       </div>
                       <p>---------------------------------------------------</p>
@@ -69,9 +72,15 @@ export default {
         ...mapGetters('shoppingCartModule',['getShoppingCartList']),
         ...mapGetters('userModule',['getUserLogged']),
         calcularTotal(){
-            let suma = this.getShoppingCartList.reduce((acum,data) =>
-                acum + parseInt(data.price)
-            ,0)
+            let suma = this.getShoppingCartList.reduce((acum,data) =>{
+                let prevSum=0
+                if(data.cant >1){
+                    prevSum = parseInt(data.price) * data.cant
+                }else{
+                    prevSum = parseInt(data.price)
+                }
+                return acum + prevSum
+        },0)
             return suma
         }
     },

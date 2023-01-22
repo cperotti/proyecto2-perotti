@@ -4,7 +4,7 @@
             <card-component v-for="(producto) in filterProductsSection" :key="producto.id" :producto="producto" />
         </div>
         <div v-else class="d-flex justify-content-center align-items-center p-3">
-            Aun no hay datos para mostrar
+            No hay datos para mostrar
         </div>
     </div>
 </template>

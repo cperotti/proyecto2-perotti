@@ -1,6 +1,9 @@
 <template>
     <div class="p-3">
-        <table class="table table-light table-bordered">
+        <div v-if="showSuccessAlert" class="alert alert-success" role="alert">
+           Acabas de quitar el elemento del carrito con éxito!
+        </div>
+        <table v-if="getShoppingCartList.length > 0" class="table table-light table-bordered">
             <thead>
                 <tr>
                     <th>Identificación</th>
@@ -27,25 +30,40 @@
                 </tr>
             </tbody>
         </table>
+        <div v-else class="card">
+            <div class="card-body">
+            <div class="card-text">
+                <div>
+                    <p>Aun no tenes ningun producto agregado al carrito. Para hacerlo debes dirigirte a Productos</p>
+                </div>
+                <button @click="irAProductos" type="button" class="btn btn-link">Ir a productos</button>
+            </div>
+            </div>
+        </div>
     </div>
-  
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
 export default {
     name:'ShoppingCartComponent',
+    data() {
+        return {
+            showSuccessAlert:false,
+        }
+    },
     computed:{
         ...mapGetters('shoppingCartModule',['getShoppingCartList']),
         ...mapGetters('userModule',['getUserLogged']),
-        // calculateSumaCant(){
-            
-        // }
     },
     methods:{
         ...mapMutations('shoppingCartModule',['deleteShoppingCartItem']),
         eliminarItemCarrito(id){
             this.deleteShoppingCartItem(id)
+            this.showSuccessAlert=true
+            setTimeout(() => {
+                Object.assign(this.$data, this.$options.data())
+                }, 3000);
         },
         decrementar(id){
             this.getShoppingCartList.map((el) => {
@@ -63,18 +81,17 @@ export default {
             this.getShoppingCartList.map((el) => {
                 if(el.id === id){
                     let cant = el.cant++
-                    let precio  = parseInt(el.price)*parseInt(cant)
-
-                    console.log(precio)
                     return{
                         ...el,
                         cant,
-                        price:precio.toString(),
                     }
                 }
                 return el
             })
 
+        },
+        irAProductos(){
+            this.$router.push('/productos')
         }
     }
 }

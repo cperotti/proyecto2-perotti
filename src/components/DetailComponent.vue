@@ -10,20 +10,19 @@
                     <h4 class="card-title">{{getProductDetail.name}}</h4>
                     <p class="card-text">{{getProductDetail.descripcion}}</p>
                     <h5>Caracteristicas</h5>
-                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion" id="accordionExample">
                         <div class="accordion-item" v-for="(detalle, index) in getProductDetail.detail" :key="index">
                             <h2 class="accordion-header" :id="index">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" :data-bs-target="`#${detalle.titulo}`" aria-expanded="false" :aria-controls="`${detalle.titulo}`">
                                 {{detalle.titulo}}
                             </button>
                             </h2>
-                            <div :id="`${detalle.titulo}`" class="accordion-collapse collapse" :aria-labelledby="index" data-bs-parent="#accordionFlushExample">
+                            <div :id="`${detalle.titulo}`" class="accordion-collapse collapse" :aria-labelledby="index" data-bs-parent="#accordionExample">
                             <div class="accordion-body">{{detalle.descripcion}}</div>
                         </div>
                         </div>
                     </div>
-                    <div class="line"></div>
-                    <div class="d-flex flex-row">
+                    <div class="d-flex flex-row pt-3">
                         <h5 class="pe-3">Precio</h5>
                         <p>${{getProductDetail.price}}</p>
                     </div>

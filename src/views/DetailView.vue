@@ -24,5 +24,9 @@ export default {
 </script>
 
 <style scoped>
-  
+  .section-detail{
+  padding: 56px;
+  width: 100%;
+  height: 100%;
+}
 </style>
