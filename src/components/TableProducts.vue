@@ -52,47 +52,30 @@
       </div>
       <div class="modal-body">
         <div >
-            <div class="row mb-3">
-                <div class="col">
-                    <label for="imagenProducto" class="form-label">Imagen</label>
-                    <input v-model="image" type="url" class="form-control form-control-sm" id="imagenProducto" aria-describedby="imageHelp">
-                    <p v-if="errors.image" class="card-text"><small class="text-danger">{{ errors.image }}</small></p>
-                </div>
-                <div class="col">
-                    <img v-if="image" :src="image" alt="imagen" class="imagen">
-                    <div v-else class="h-100 border border-primary-subtle d-flex justify-content-center align-items-center">
-                        <p>Empty</p>
-                    </div>
-                </div>
+            <div class="pb-3">
+                <label for="imagenProducto" class="form-label">Imagen</label>
+                <input v-model="image" type="url" class="form-control form-control-sm" id="imagenProducto" aria-describedby="imageHelp">
+                <p v-if="errors.image" class="card-text"><small class="text-danger">{{ errors.image }}</small></p>
             </div>
-            <div class="mb-3">
+            <div class="pb-3">
                 <label for="nombreProducto" class="form-label">Nombre</label>
                 <input v-model="name" type="text" class="form-control form-control-sm" id="nombreProducto" aria-describedby="nameHelp">
                 <p v-if="errors.name" class="card-text"><small class="text-danger">{{ errors.name }}</small></p>
             </div>
-            <div class="mb-3">
+            <div class="pb-3">
                 <label for="descripcionProducto" class="form-label">Descripcion</label>
                 <textarea v-model="description" class="form-control form-control-sm" id="descripcionProducto" rows="3"></textarea>
                 <p v-if="errors.description" class="card-text"><small class="text-danger">{{ errors.description }}</small></p>
             </div>
-            <div class="row mb-3">
-                <div class="col">
-                    <label for="tipoProducto" class="form-label">Tipo</label>
-                    <select class="form-select form-select-sm" id="tipoProducto" aria-label="Default select example">
-                        <option v-for="(type) in types" :key="type.id" :value="type.id" :selected="type.id === type">{{ type.title }}</option>
-                    </select>
-                    <p  v-if="errors.type" class="card-text"><small class="text-danger">{{ errors.type }}</small></p>
-                </div>
-                <div class="col">
-                    <label for="precioProducto" class="form-label">Precio</label>
-                    <input v-model="price" type="text" class="form-control form-control-sm"  id="precioProducto" aria-describedby="priceHelp">
-                    <p v-if="errors.price" class="card-text"><small class="text-danger">{{ errors.price }}</small></p>
-                </div>
+            <div class="pb-3">
+                <label for="precioProducto" class="form-label">Precio</label>
+                <input v-model="price" type="text" class="form-control form-control-sm"  id="precioProducto" aria-describedby="priceHelp">
+                <p v-if="errors.price" class="card-text"><small class="text-danger">{{ errors.price }}</small></p>
             </div>
-            <p>--------------------------------------------------------------------------------------------------------------------------------------------</p>
-            <h5>Detalle</h5>
-            <div v-for="(productDetail, index) in detail" :key="index">
-                    <label for="precioProducto" class="form-label">{{ productDetail.titulo }}</label>
+            <div class="line"></div>
+            <h5 class="pt-3">Detalle</h5>
+            <div class="pb-3" v-for="(productDetail, index) in detail" :key="index">
+                    <label for="descripcionProducto" class="form-label">{{ productDetail.titulo }}</label>
                     <textarea v-model="productDetail.descripcion" class="form-control form-control-sm" id="descripcionProducto" rows="3"></textarea>
             </div>
             <p v-if="errors.detail" class="card-text"><small class="text-danger">{{errors.detail}}</small></p>
@@ -259,5 +242,8 @@ export default {
 .contenedor-icono svg{
     width: 30px;
     height: 20px;
+}
+.line{
+    border: 1px solid gray;
 }
 </style>

@@ -30,25 +30,32 @@
                       <p>Aun no tenemos información para mostrar</p>
                   </div>
               </div>
-              <button :disabled="getShoppingCartList.length === 0" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success w-100">Finalizar compra</button>
+              <button :disabled="getShoppingCartList.length === 0" type="button" data-bs-toggle="modal" data-bs-target="#modalInfoEnvo" class="btn btn-success w-100">Finalizar compra</button>
               </div>
           </div>
-          <div class="modal" tabindex="-1" id="exampleModal">
-        <div class="modal-dialog">
+          <div class="modal fade" tabindex="-1" id="modalInfoEnvo" aria-labelledby="modalInfoEnvoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Ingresar direccion</h5>
+              <h5 class="modal-title">Datos de envio</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Por favor, necesitamos que ingrese la direccion para enviar el pedido antes de finalizar la compra</p>
-                <label for="direccion" class="form-label">Dirección</label>
-                <input v-model="adress" type="text" class="form-control form-control-sm" id="nombreProducto" aria-describedby="adressHelp">
-                <p v-if="errors.adress" class="card-text"><small class="text-danger">{{ errors.adress }}</small></p>
+                <div class="col pb-3">
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <input v-model="adress" type="text" class="form-control form-control-sm" id="direccion" aria-describedby="adressHelp">
+                    <p v-if="errors.adress" class="card-text"><small class="text-danger">{{ errors.adress }}</small></p>
+                </div>
+                <div class="col">
+                    <label for="telefono" class="form-label">Telefono</label>
+                    <input v-model="phone" type="text" class="form-control form-control-sm" id="telefono" aria-describedby="adressHelp">
+                    <p v-if="errors.phone" class="card-text"><small class="text-danger">{{ errors.phone }}</small></p>
+                </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-outlined-success" data-bs-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-success" data-bs-dismiss="modal"  @click.prevent="finalizarCompra">Finalizar</button>
+              <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Cancelar</button>
+              <!--ver como hacer para que se cierre el modal cuando apreto enviar-->
+              <button type="button" class="btn btn-success" @click="finalizarCompra">Finalizar</button>
             </div>
           </div>
         </div>
@@ -63,9 +70,13 @@ export default {
     data(){
         return{
             adress:'',
+            phone:'',
             errors:{
-                adress:''
-            }
+                adress:'',
+                phone:''
+            },
+            showSuccessAlert:false,
+            showDangerAlert:false,
         }
     },
     computed:{
@@ -89,6 +100,13 @@ export default {
             if(nuevo && this.errors.adress){
                 this.errors={...this.errors, adress:''}
             }
+        },
+        phone(nuevo){
+            if(nuevo && this.errors.phone){
+                this.errors={
+                    ...this.errors, phone:''
+                }
+            }
         }
     },
     methods:{
@@ -99,16 +117,22 @@ export default {
                 this.errors={...this.errors, adress:'Ingresa una direccion antes de finalizar'}
             }
 
-            if(this.adress){
+            if(!this.phone){
+                this.errors={...this.errors, phone:'Ingresa un numero de telefono antes de finalizar'}
+            }
+
+            if(this.adress && this.phone){
                 const dataAux = {
                     order: this.getShoppingCartList,
                     adress: this.adress,
+                    phone: this.phone,
                     infoUser: this.getUserLogged.email,
-                    delivered: false,
                     total: this.calcularTotal
                 }
-                this.addNewItem(dataAux)
-                this.resetShoppingCart()
+                this.addNewItem(dataAux).then(()=>{
+                    this.resetShoppingCart()
+                    Object.assign(this.$data, this.$options.data())
+                })
             }
         }
     }

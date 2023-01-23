@@ -8,32 +8,24 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div >
-            <div class="row mb-3">
-                <div class="col">
-                    <label for="imagenProducto" class="form-label">Imagen</label>
-                    <input v-model="image" type="url" class="form-control form-control-sm" id="imagenProducto" aria-describedby="imageHelp">
-                </div>
-                <div class="col">
-                    <img v-if="image" :src="image" alt="imagen" class="imagen">
-                    <div v-else class="h-100 border border-primary-subtle d-flex justify-content-center align-items-center">
-                        <p>Empty</p>
-                    </div>
-                </div>
+        <div>
+            <div class="pb-3">
+                <label for="imagenProducto" class="form-label">Imagen</label>
+                <input v-model="image" type="url" class="form-control form-control-sm" id="imagenProducto" aria-describedby="imageHelp">
             </div>
-            <div class="mb-3">
+            <div class="pb-3">
                 <label for="nombreProducto" class="form-label">Nombre</label>
                 <input v-model="name" type="text" class="form-control form-control-sm" id="nombreProducto" aria-describedby="nameHelp">
             </div>
-            <div class="mb-3">
+            <div class="pb-3">
                 <label for="descripcionProducto" class="form-label">Descripcion</label>
                 <textarea v-model="description" class="form-control form-control-sm" id="descripcionProducto" rows="3"></textarea>
             </div>
-            <div class="row mb-3">
+            <div class="row pb-3">
                 <div class="col">
                     <label for="tipoProducto" class="form-label">Tipo</label>
-                    <select class="form-select form-select-sm" id="tipoProducto" aria-label="Default select example">
-                        <option v-for="(type) in types" :key="type.id" :value="type.id" :selected="type.id === type">{{ type.title }}</option>
+                    <select v-model="type" class="form-select form-select-sm" id="tipoProducto" aria-label="Default select example">
+                        <option v-for="(typeSelect) in types" :key="typeSelect.id" :value="typeSelect.id">{{ typeSelect.title }}</option>
                     </select>
                 </div>
                 <div class="col">
@@ -41,17 +33,19 @@
                     <input v-model="price" type="text" class="form-control form-control-sm"  id="precioProducto" aria-describedby="priceHelp">
                 </div>
             </div>
-            <p>--------------------------------------------------------------------------------------------------------------------------------------------</p>
-            <h5>Detalle</h5>
-            <div v-for="(productDetail, index) in detail" :key="index">
-                    <label for="precioProducto" class="form-label">{{ productDetail.titulo }}</label>
-                    <textarea v-model="productDetail.descripcion" class="form-control form-control-sm" id="descripcionProducto" rows="3"></textarea>
+            <div class="line"></div>
+            <h5 class="pt-3">Detalle</h5>
+            <div v-if="type">
+                <div class="pb-3" v-for="(detail, index) in content[type]" :key="index">
+                    <label for="precioProducto" class="form-label">{{ detail.titulo }}</label>
+                    <textarea v-model="detail.descripcion" class="form-control form-control-sm" id="descripcionProducto" rows="3"></textarea>
+                </div>
             </div>
             </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Guardar</button>
+        <button @click="limpiarModal" type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Cancelar</button>
+        <button @click="guardarProducto" type="button" class="btn btn-success" data-bs-dismiss="modal">Guardar</button>
       </div>
     </div>
   </div>
@@ -59,6 +53,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
     name: 'PruebaModal',
     data() {
@@ -68,7 +63,6 @@ export default {
             description:'',
             price:'',
             type:'',
-            detail:[],
             types:[
                 {
                     id:'plantas',
@@ -83,12 +77,75 @@ export default {
                     title:'Herramientas'
                 }
             ],
+            content:{
+                plantas:[
+                    {
+                        titulo:'Familia',
+                        descripcion:''
+                    },
+                    {
+                        titulo:'Origen',
+                        descripcion:''
+                    },
+                    {
+                        titulo:'Mantenimiento',
+                        descripcion:''
+                    },
+                    {
+                        titulo:'Plagas',
+                        descripcion:''
+                    },
+                ],
+                herramientas:[
+                    {
+                        titulo:'General',
+                        descripcion:''
+                    },
+                    {
+                        titulo:'Adicional',
+                        descripcion:''
+                    }
+                ],
+                semillas:[
+                    {
+                        titulo:'Siembre',
+                        descripcion:''
+                    },
+                    {
+                        titulo:'Floracion',
+                        descripcion:''
+                    },
+                    {
+                        titulo:'Utilizacion',
+                        descripcion:''
+                    },
+                ]
+            }
         }
     },
+    methods:{
+        ...mapActions('productModule',['addNewProduct']),
+        limpiarModal(){
+            Object.assign(this.$data, this.$options.data())
+        },
+        guardarProducto(){
+            const dataAux ={
+                image:this.image,
+                name: this.name,
+                description: this.description,
+                type: this.type,
+                price:this.price,
+                detail: this.content[this.type]
+            }
+            this.addNewProduct(dataAux)
+        }
+    }
 
 }
 </script>
 
 <style scope>
-
+.line{
+    border: 1px solid gray;
+}
 </style>

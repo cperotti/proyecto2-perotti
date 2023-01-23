@@ -38,6 +38,12 @@ export default{
                 commit('loadProductDetail',response.data)
             })
         },
+        addNewProduct: ({commit}, data) => {
+          const URLPOST = 'https://639e6cf43542a261305b9ed0.mockapi.io/productos'
+          axios.post(URLPOST,data).then((response)=> {
+            commit('data',response.data)
+          })
+        },
         editProduct: ({commit}, data)=>{
           const URLPUT= `https://639e6cf43542a261305b9ed0.mockapi.io/productos/${data.param}`
           axios.put(URLPUT, data.productChanges).then((response)=>{

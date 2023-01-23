@@ -97,7 +97,11 @@ export default {
             const coments = {
                 coment: this.comentario,
                 date: new Date(),
-                user: this.getUserLogged
+                user: {
+                    avatar:this.getUserLogged.avantar,
+                    firstName: this.getUserLogged.firstName,
+                    lastName: this.getUserLogged.lastName,
+                }
             }
              this.sendComent({
                 param: this.getProductDetail.id, 

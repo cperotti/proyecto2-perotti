@@ -12,7 +12,7 @@
         <div class="col-2">
           <input class="form-control" type="search" placeholder="Buscar" aria-label="Search">
         </div>
-        <div class="col-2">
+        <div v-if="this.$route.params.section==='productos'" class="col-2">
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModalAdd">Agregar nuevo</button>
         </div>
       </div>

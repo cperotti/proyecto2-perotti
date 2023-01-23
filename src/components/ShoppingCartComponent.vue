@@ -20,7 +20,7 @@
                     <td>${{producto.price}}</td>
                     <td><button @click="decrementar(producto.id)" :disabled="producto.cant === 1" type="button" class="btn btn-success me-2">-</button>{{producto.cant}}<button @click="incrementar(producto.id)" class="btn btn-success ms-2" type="button">+</button></td>
                     <td>
-                        <div @click="eliminarItemCarrito(producto.id)" class="d-flex justify-content-center contenedor-icono">
+                        <div @click="saveId(producto.id)" data-bs-toggle="modal" data-bs-target="#modalQuitar" class="d-flex justify-content-center contenedor-icono">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
   <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
@@ -40,6 +40,23 @@
             </div>
             </div>
         </div>
+        <div class="modal fade" tabindex="-1" id="modalQuitar" aria-labelledby="modalQuitarLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Quitar producto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Estas seguro que deseas quitar este producto del carrito?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Cancelar</button>
+        <button @click="eliminarItemCarrito" type="button" class="btn btn-success" data-bs-dismiss="modal" >Quitar</button>
+      </div>
+    </div>
+  </div>
+</div>
     </div>
 </template>
 
@@ -50,6 +67,7 @@ export default {
     data() {
         return {
             showSuccessAlert:false,
+            productId:null,
         }
     },
     computed:{
@@ -58,8 +76,12 @@ export default {
     },
     methods:{
         ...mapMutations('shoppingCartModule',['deleteShoppingCartItem']),
-        eliminarItemCarrito(id){
-            this.deleteShoppingCartItem(id)
+        saveId(id){
+            this.productId=id
+        },
+        eliminarItemCarrito(){
+            console.log('estoy en eliminar')
+            this.deleteShoppingCartItem(this.productId)
             this.showSuccessAlert=true
             setTimeout(() => {
                 Object.assign(this.$data, this.$options.data())
