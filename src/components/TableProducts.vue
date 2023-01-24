@@ -18,7 +18,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(producto) in getProductsList" :key="producto.id">
+                <tr v-for="(producto) in filterProductsSection" :key="producto.id">
                     <td><img :src="producto.image" class="card-img-top imagen" alt="img"></td>
                     <td>{{producto.name}}</td>
                     <td>{{producto.description}}</td>
@@ -130,6 +130,9 @@ export default {
             showDangerAlert:false
         }
     },
+    props:{
+        elementoABuscar:String
+    },
     created(){
         this.fetchProductsList()
     },
@@ -167,6 +170,9 @@ export default {
     },
     computed:{
         ...mapGetters('productModule',['getProductsList']),
+        filterProductsSection(){
+            return this.getProductsList.filter((el)=> el.name.toLowerCase().includes(this.elementoABuscar) || el.type.toLowerCase().includes(this.elementoABuscar) )
+        }
     },
     methods:{
         ...mapActions('productModule',['fetchProductsList', 'editProduct', 'deleteProduct']),

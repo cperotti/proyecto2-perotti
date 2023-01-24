@@ -10,14 +10,14 @@
       </nav>
       <div class="row justify-content-end pb-3">
         <div class="col-2">
-          <input class="form-control" type="search" placeholder="Buscar" aria-label="Search">
+          <search-component @enviarElementoBuscado="elementoABuscar=$event"/>
         </div>
         <div v-if="this.$route.params.section==='productos'" class="col-2">
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModalAdd">Agregar nuevo</button>
         </div>
       </div>
           <div class="container">
-          <list-sections />
+          <list-sections :elementoABuscar="elementoABuscar" />
           </div>
             <pueba-modal />
         </div>
@@ -29,6 +29,7 @@
 import ListSections from '@/components/ListSections.vue'
 import HeaderComponent from '@/components/HeaderComponent.vue'
 import PuebaModal from '@/components/PuebaModal.vue'
+import SearchComponent from '@/components/SearchComponent.vue'
 
 export default {
   name: 'ListView',
@@ -36,14 +37,20 @@ export default {
     ListSections,
     HeaderComponent,
     PuebaModal,
+    SearchComponent,
+  },
+  data() {
+    return {
+      elementoABuscar:''
+    }
   },
 }
 </script>
 
 <style scoped>
 .section-detail{
+  padding: 56px;
   width: 100%;
   height: 100%;
-  padding-bottom: 24px;
 }
 </style>

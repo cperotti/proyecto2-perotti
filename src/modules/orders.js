@@ -30,6 +30,12 @@ export default{
           axios.post(URLPOST,data).then((response)=> {
             commit('postData',response)
           })
-        }
+        },
+        deleteOrder: ({commit}, id) =>{
+          const URLDELETE = `https://639e6cf43542a261305b9ed0.mockapi.io/pedidos/${id}`
+          axios.delete(URLDELETE).then((response)=>{
+            commit('postData', response.data)
+          })
+        },
     }
 }
