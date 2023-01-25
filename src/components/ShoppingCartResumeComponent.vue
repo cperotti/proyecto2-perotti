@@ -47,14 +47,18 @@
                         <p class="pe-2"><strong class="text-danger">*</strong></p>
                         <label for="direccion" class="form-label">Dirección</label>
                     </div>
-                    <input v-model="adress" type="text" class="form-control form-control-sm" id="direccion" aria-describedby="adressHelp">
+                    <input v-model="adress" placeholder="Ingresa una dirección" type="text" class="form-control form-control-sm" id="direccion" aria-describedby="adressHelp">
                 </div>
                 <div class="col">
                     <div class="d-flex flex-row">
                         <p class="pe-2"><strong class="text-danger">*</strong></p>
-                        <label for="telefono" class="form-label">Telefono</label>
+                        <label for="telefono" class="form-label">Teléfono</label>
                     </div>
-                    <input v-model="phone" type="text" class="form-control form-control-sm" id="telefono" aria-describedby="adressHelp">
+                    <div class="input-group">
+                        <span class="input-group-text">221</span>
+                        <input v-model="phone" maxlength="7" placeholder="Ingrese un número" type="text" class="form-control form-control-sm" id="telefono" aria-describedby="adressHelp">
+                    </div>
+                    <p class="card-text"><small>Ingrese un número sin 15</small></p>
                 </div>
             </div>
             <div class="modal-footer">
@@ -119,7 +123,7 @@ export default {
                 })
             }
         }
-    }
+    },
 }
 </script>
 

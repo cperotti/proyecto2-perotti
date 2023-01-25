@@ -4,6 +4,9 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import router from './router'
 import store from './store'
+import moment from 'moment'
+
+moment.locale('es');
 
 Vue.config.productionTip = false
 

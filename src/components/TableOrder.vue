@@ -14,7 +14,7 @@
             <tbody>
                 <tr v-for="(order) in filterProductsSection" :key="order.id">
                     <td>{{order.id}}</td>
-                    <td>{{Date.parse(order.createdAt)}}</td>
+                    <td>{{order.createdAt | dateFormat(order.createdAt)}}</td>
                     <td>{{order.infoUser}}</td>
                     <td>{{ order.adress }}</td>
                     <td>{{ order.phone }}</td>
@@ -33,6 +33,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import moment from 'moment'
 export default {
     name: 'TableOrder',
     props:{
@@ -51,6 +52,11 @@ export default {
         ...mapActions('ordersModule',['fetchOrdersList', 'deleteOrder']),
         eliminarPedido(id){
             this.deleteOrder(id)
+        }
+    },
+     filters:{
+        dateFormat:(date)=>{
+            return moment(date).calendar()
         }
     }
 }

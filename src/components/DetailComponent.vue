@@ -54,7 +54,7 @@
                 </div>
                     {{comentario.coment}}
                 </div>
-                <p class="card-text"><small class="text-muted">{{comentario.date}}</small></p>
+                <p class="card-text"><small class="text-muted">{{comentario.date | dateFormat(comentario.date)}}</small></p>
             </li>
         </ul>
     </div>
@@ -62,6 +62,7 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
+import moment from 'moment'
 
 export default {
     name:'DetailComponent',
@@ -117,6 +118,11 @@ export default {
                 Object.assign(this.$data, this.$options.data())
                 }, 3000);
             })
+        }
+    },
+    filters:{
+        dateFormat:(date)=>{
+            return moment(date).calendar()
         }
     }
 }
