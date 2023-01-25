@@ -47,43 +47,54 @@
   <div class="modal-dialog modal-lg modal-dialog-scrollable w-70">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar producto</h1>
+        <h1 class="modal-title fs-5 pe-3" id="exampleModalLabel">Editar producto</h1>
+        <small>Todos los campos son obligatorios (*)</small>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div >
             <div class="pb-3">
-                <label for="imagenProducto" class="form-label">Imagen</label>
+                <div class="d-flex flex-row">
+                    <p class="pe-2"><strong class="text-danger">*</strong></p>
+                    <label for="imagenProducto" class="form-label">Imagen</label>
+                </div>
                 <input v-model="image" type="url" class="form-control form-control-sm" id="imagenProducto" aria-describedby="imageHelp">
-                <p v-if="errors.image" class="card-text"><small class="text-danger">{{ errors.image }}</small></p>
             </div>
             <div class="pb-3">
-                <label for="nombreProducto" class="form-label">Nombre</label>
+                <div class="d-flex flex-row">
+                    <p class="pe-2"><strong class="text-danger">*</strong></p>
+                    <label for="nombreProducto" class="form-label">Nombre</label>
+                </div>
                 <input v-model="name" type="text" class="form-control form-control-sm" id="nombreProducto" aria-describedby="nameHelp">
-                <p v-if="errors.name" class="card-text"><small class="text-danger">{{ errors.name }}</small></p>
             </div>
             <div class="pb-3">
-                <label for="descripcionProducto" class="form-label">Descripcion</label>
+                <div class="d-flex flex-row">
+                    <p class="pe-2"><strong class="text-danger">*</strong></p>
+                    <label for="descripcionProducto" class="form-label">Descripcion</label>
+                </div>
                 <textarea v-model="description" class="form-control form-control-sm" id="descripcionProducto" rows="3"></textarea>
-                <p v-if="errors.description" class="card-text"><small class="text-danger">{{ errors.description }}</small></p>
             </div>
             <div class="pb-3">
-                <label for="precioProducto" class="form-label">Precio</label>
+                <div class="d-flex flex-row">
+                    <p class="pe-2"><strong class="text-danger">*</strong></p>
+                    <label for="precioProducto" class="form-label">Precio</label>
+                </div>
                 <input v-model="price" type="text" class="form-control form-control-sm"  id="precioProducto" aria-describedby="priceHelp">
-                <p v-if="errors.price" class="card-text"><small class="text-danger">{{ errors.price }}</small></p>
             </div>
             <div class="line"></div>
             <h5 class="pt-3">Detalle</h5>
             <div class="pb-3" v-for="(productDetail, index) in detail" :key="index">
+                <div class="d-flex flex-row">
+                    <p class="pe-2"><strong class="text-danger">*</strong></p>
                     <label for="descripcionProducto" class="form-label">{{ productDetail.titulo }}</label>
-                    <textarea v-model="productDetail.descripcion" class="form-control form-control-sm" id="descripcionProducto" rows="3"></textarea>
+                </div>
+                <textarea v-model="productDetail.descripcion" class="form-control form-control-sm" id="descripcionProducto" rows="3"></textarea>
             </div>
-            <p v-if="errors.detail" class="card-text"><small class="text-danger">{{errors.detail}}</small></p>
             </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Cancelar</button>
-        <button @click="guardarCambios" type="button" class="btn btn-success" data-bs-dismiss="modal">Guardar</button>
+        <button @click="guardarCambios" :disabled="isDisabled" type="button" class="btn btn-success" data-bs-dismiss="modal">Guardar</button>
       </div>
     </div>
   </div>
@@ -118,14 +129,6 @@ export default {
                     title:'Herramientas'
                 }
             ],
-            errors:{
-                image:'',
-                name:'',
-                price:'',
-                type:'',
-                detail:'',
-                description:'',
-            },
             showSuccessAlert:false,
             showDangerAlert:false
         }
@@ -136,81 +139,33 @@ export default {
     created(){
         this.fetchProductsList()
     },
-    watch:{
-        image(nuevo){
-            if(nuevo && this.errors.image){
-                this.errors = {...this.errors, image:''} 
-            }
-        },
-        name(nuevo){
-            if(nuevo && this.errors.name){
-                this.errors = {...this.errors, name:''} 
-            }
-        },
-        type(nuevo){
-            if(nuevo && this.errors.type){
-                this.errors = {...this.errors, type:''} 
-            }
-        },
-        description(nuevo){
-            if(nuevo && this.errors.description){
-                this.errors = {...this.errors, description:''} 
-            }
-        },
-        price(nuevo){
-            if(nuevo && this.errors.price){
-                this.errors = {...this.errors, price:''} 
-            }
-        },
-        detail(nuevo){
-            if(nuevo && this.errors.detail){
-                this.errors = {...this.errors, detail:''} 
-            }
-        }
-    },
     computed:{
         ...mapGetters('productModule',['getProductsList']),
         filterProductsSection(){
+            console.log(this.detail)
             return this.getProductsList.filter((el)=> el.name.toLowerCase().includes(this.elementoABuscar) || el.type.toLowerCase().includes(this.elementoABuscar) )
+        },
+        isDisabled(){
+            return !this.name || !this.price || !this.description || !this.type || !this.image || this.detail.length ===0
         }
-    },
+       },
     methods:{
         ...mapActions('productModule',['fetchProductsList', 'editProduct', 'deleteProduct']),
         eliminarProducto(id){
            this.deleteProduct(id)
         },
         editarProducto(dataProducto){
+            console.log(dataProducto)
             this.idProducto = dataProducto.id
             this.price = dataProducto.price
             this.image = dataProducto.image
             this.name = dataProducto.name
             this.type = dataProducto.type
             this.description = dataProducto.description
-            this.detail = dataProducto.detail
+            this.detail = [...this.detail,...dataProducto.detail]
         },
         guardarCambios(){
-            console.log('entre a guardar cambios')
-            if(!this.image){
-                this.errors = {...this.errors, image:'Debes colocar una url de imagen para poder guardar los cambios'} 
-            }
-            if(!this.name){
-                this.errors = {...this.errors, name:'Debes colocar nombre para poder guardar los cambios'} 
-            }
-            if(!this.price){
-                this.errors = {...this.errors, price:'Debes colocar un precio para poder guardar los cambios'} 
-            }
-            if(!this.description){
-                this.errors = {...this.errors, description:'Debes colocar una descripcion para poder guardar los cambios'} 
-            }
-            if(!this.detail){
-                this.errors = {...this.errors, detail:'Debes completar el detalle para poder guardar los cambios'} 
-            }
-            if(!this.type){
-                this.errors = {...this.errors, type:'Debes seleccionar un tipo para poder guardar los cambios'} 
-            }
-
             if(this.name && this.price && this.description && this.type && this.image && this.detail.length >0){
-                console.log('entre a esta todo lleno')
                 const dataAux = {
                     price:this.price,
                     image: this.image,

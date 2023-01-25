@@ -34,7 +34,7 @@
             <div class="card-body">
             <div class="card-text">
                 <div>
-                    <p>Aun no tenes ningun producto agregado al carrito. Para hacerlo debes dirigirte a Productos</p>
+                    <p>No tenes productos agregados al carrito. Para hacerlo, debes dirigirte a la sección Productos</p>
                 </div>
                 <button @click="irAProductos" type="button" class="btn btn-link">Ir a productos</button>
             </div>

@@ -4,32 +4,48 @@
   <div class="modal-dialog modal-lg modal-dialog-scrollable w-70">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar producto</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h1 class="modal-title fs-5 pe-3" id="exampleModalLabel">Agregar producto</h1>
+        <small>Todos los campos son obligatorios (*)</small>
+        <button type="button" @click="limpiarModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div>
             <div class="pb-3">
-                <label for="imagenProducto" class="form-label">Imagen</label>
+                <div class="d-flex flex-row">
+                    <p class="pe-2"><strong class="text-danger">*</strong></p>
+                    <label for="imagenProducto" class="form-label">Imagen</label>
+                </div>
                 <input v-model="image" type="url" class="form-control form-control-sm" id="imagenProducto" aria-describedby="imageHelp">
             </div>
             <div class="pb-3">
-                <label for="nombreProducto" class="form-label">Nombre</label>
+                <div class="d-flex flex-row">
+                    <p class="pe-2"><strong class="text-danger">*</strong></p>
+                    <label for="nombreProducto" class="form-label">Nombre</label>
+                </div>
                 <input v-model="name" type="text" class="form-control form-control-sm" id="nombreProducto" aria-describedby="nameHelp">
             </div>
             <div class="pb-3">
-                <label for="descripcionProducto" class="form-label">Descripcion</label>
+                <div class="d-flex flex-row">
+                    <p class="pe-2"><strong class="text-danger">*</strong></p>
+                    <label for="descripcionProducto" class="form-label">Descripcion</label>
+                </div>
                 <textarea v-model="description" class="form-control form-control-sm" id="descripcionProducto" rows="3"></textarea>
             </div>
             <div class="row pb-3">
                 <div class="col">
-                    <label for="tipoProducto" class="form-label">Tipo</label>
+                    <div class="d-flex flex-row">
+                        <p class="pe-2"><strong class="text-danger">*</strong></p>
+                        <label for="tipoProducto" class="form-label">Tipo</label>
+                    </div>
                     <select v-model="type" class="form-select form-select-sm" id="tipoProducto" aria-label="Default select example">
                         <option v-for="(typeSelect) in types" :key="typeSelect.id" :value="typeSelect.id">{{ typeSelect.title }}</option>
                     </select>
                 </div>
                 <div class="col">
-                    <label for="precioProducto" class="form-label">Precio</label>
+                    <div class="d-flex flex-row">
+                        <p class="pe-2"><strong class="text-danger">*</strong></p>
+                        <label for="precioProducto" class="form-label">Precio</label>
+                    </div>
                     <input v-model="price" type="text" class="form-control form-control-sm"  id="precioProducto" aria-describedby="priceHelp">
                 </div>
             </div>
@@ -37,7 +53,10 @@
             <h5 class="pt-3">Detalle</h5>
             <div v-if="type">
                 <div class="pb-3" v-for="(detail, index) in content[type]" :key="index">
-                    <label for="precioProducto" class="form-label">{{ detail.titulo }}</label>
+                    <div class="d-flex flex-row">
+                        <p class="pe-2"><strong class="text-danger">*</strong></p>
+                        <label for="precioProducto" class="form-label">{{ detail.titulo }}</label>
+                    </div>
                     <textarea v-model="detail.descripcion" class="form-control form-control-sm" id="descripcionProducto" rows="3"></textarea>
                 </div>
             </div>
@@ -45,7 +64,7 @@
       </div>
       <div class="modal-footer">
         <button @click="limpiarModal" type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Cancelar</button>
-        <button @click="guardarProducto" type="button" class="btn btn-success" data-bs-dismiss="modal">Guardar</button>
+        <button @click="guardarProducto" :disabled="isDisabled" type="button" class="btn btn-success" data-bs-dismiss="modal">Guardar</button>
       </div>
     </div>
   </div>
@@ -121,6 +140,11 @@ export default {
                     },
                 ]
             }
+        }
+    },
+    computed:{
+        isDisabled(){
+            return !this.image || !this.name || !this.description || !this.price || !this.type || !this.content[this.type].every(el => el.descripcion)
         }
     },
     methods:{

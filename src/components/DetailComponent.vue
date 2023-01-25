@@ -8,7 +8,7 @@
                 <div class="col-md-6">
                 <div class="card-body d-grid gap-2">
                     <h4 class="card-title">{{getProductDetail.name}}</h4>
-                    <p class="card-text">{{getProductDetail.descripcion}}</p>
+                    <p class="card-text">{{getProductDetail.description}}</p>
                     <h5>Caracteristicas</h5>
                     <div class="accordion" id="accordionExample">
                         <div class="accordion-item" v-for="(detalle, index) in getProductDetail.detail" :key="index">
@@ -90,7 +90,6 @@ export default {
                     cant: 1,
                 }
             this.addShoppingCartItem(dataItem)
-            //this.$router.push(`/carrito`)
             
         },
         guardarComentario(){

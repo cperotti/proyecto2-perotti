@@ -4,9 +4,9 @@
                 <tr>
                     <th>Id</th>
                     <th>fecha</th>
-                    <th>Informacion suario</th>
-                    <th>Direccion</th>
-                    <th>Telefono</th>
+                    <th>Información suario</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
                     <th>Total</th>
                     <th>Acciones</th>
                 </tr>
