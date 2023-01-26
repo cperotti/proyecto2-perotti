@@ -16,10 +16,6 @@ export default {
   components:{
     HeaderComponent,
   },
-  data(){
-    return{
-    }
-  },
   computed:{
     ...mapGetters('userModule',['getUserLogged'])
   }

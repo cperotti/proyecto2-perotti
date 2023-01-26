@@ -113,7 +113,7 @@ export default {
                 const dataAux = {
                     order: this.getShoppingCartList,
                     adress: this.adress,
-                    phone: this.phone,
+                    phone: '221'+ this.phone,
                     infoUser: this.getUserLogged.email,
                     total: this.calcularTotal
                 }
