@@ -28,7 +28,7 @@
                     <td>{{ order.phone }}</td>
                     <td>${{ order.total }}</td>
                     <td>
-                        <div class="contenedor-icono" @click="eliminarPedido(order.id)">
+                        <div class="contenedor-icono" data-bs-toggle="modal" data-bs-target="#modalEliminar" @click="saveId(order.id)">
                             <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
                             <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
                             </svg>
@@ -38,6 +38,23 @@
             </tbody>
         </table>
     </div>
+      <div class="modal fade" tabindex="-1" id="modalEliminar" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar pedido</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Estas seguro que deseas eliminar este pedido? Esta acción indica que ya ha sido entregado</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Cancelar</button>
+        <button @click="eliminarPedido" type="button" class="btn btn-success" data-bs-dismiss="modal" >Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 </template>
 
@@ -54,7 +71,8 @@ export default {
             showSuccessAlert:false,
             showDangerAlert: false,
             messageAlertSuccess:'',
-            messageAlertDanger:''
+            messageAlertDanger:'',
+            productId:null,
         }
     },
     created(){
@@ -68,8 +86,11 @@ export default {
     },
     methods:{
         ...mapActions('ordersModule',['fetchOrdersList', 'deleteOrder']),
-        eliminarPedido(id){
-           this.deleteOrder(id).then(()=>{
+        saveId(id){
+            this.productId=id
+        },
+        eliminarPedido(){
+           this.deleteOrder(this.productId).then(()=>{
                 this.showSuccessAlert=true
                 this.messageAlertSuccess='Se elimino pedido entregado con éxito!!'
                setTimeout(() => {
