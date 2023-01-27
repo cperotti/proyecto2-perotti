@@ -35,6 +35,11 @@ export default {
                     cant: 1,
                 }
             this.addShoppingCartItem(dataItem)
+            this.$emit('enviarDatosAlertCard', {message: 'Agregaste un producto al carrito', showSuccessAlert:true,})
+            setTimeout(() => {
+                this.$emit('enviarDatosAlertCard', {message: '', showSuccessAlert:false,})
+                Object.assign(this.$data, this.$options.data())
+            }, 3000);
         }
     }
 }

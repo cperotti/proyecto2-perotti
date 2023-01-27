@@ -1,10 +1,10 @@
 <template>
     <div>
         <div v-if="showSuccessAlert" class="alert alert-success" role="alert">
-           El producto se editó con éxito!!
+            {{messageAlertSuccess}}
         </div>
         <div v-if="showDangerAlert" class="alert alert-danger" role="alert">
-           No se ha podido editar el producto. Por favor volvé a intentarlo
+           {{messageAlertDanger}}
         </div>
         <div class="tableFixHead">
             <table class="table table-light table-bordered ">
@@ -133,7 +133,9 @@ export default {
                 }
             ],
             showSuccessAlert:false,
-            showDangerAlert:false
+            showDangerAlert:false,
+            messageAlertSuccess:'',
+            messageAlertDanger:''
         }
     },
     props:{
@@ -154,7 +156,21 @@ export default {
     methods:{
         ...mapActions('productModule',['fetchProductsList', 'editProduct', 'deleteProduct']),
         eliminarProducto(id){
-           this.deleteProduct(id)
+           this.deleteProduct(id).then(()=>{
+                this.showSuccessAlert=true
+                this.messageAlertSuccess='Se elimino el producto con éxito!!'
+               setTimeout(() => {
+                    Object.assign(this.$data, this.$options.data())
+                    this.fetchProductsList()
+                }, 3000);
+           })
+           .catch(()=>{
+                this.showDangerAlert=true
+                this.messageAlertDanger='No se ha podido eliminar el producto. Por favor volvé a intentarlo'
+                setTimeout(() => {
+                    Object.assign(this.$data, this.$options.data())
+                }, 3000);
+           })
         },
         editarProducto(dataProducto){
             this.idProducto = dataProducto.id
@@ -180,12 +196,15 @@ export default {
                     productChanges:dataAux
                 }).then(()=> {
                     this.showSuccessAlert=true
+                    this.messageAlertSuccess='El producto se editó con éxito!!'
                     setTimeout(() => {
                         Object.assign(this.$data, this.$options.data())
-                        }, 3000);
-                    })
+                        this.fetchProductsList()
+                    }, 3000);
+                })
                 .catch(()=>{
                 this.showDangerAlert=true
+                this.messageAlertDanger='No se ha podido editar el producto. Por favor volvé a intentarlo'
                 setTimeout(() => {
                     Object.assign(this.$data, this.$options.data())
                     }, 3000);

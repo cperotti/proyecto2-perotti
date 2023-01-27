@@ -81,13 +81,14 @@ export default {
             phone:'',
             showSuccessAlert:false,
             showDangerAlert:false,
+            limitDigit:7,
         }
     },
     computed:{
         ...mapGetters('shoppingCartModule',['getShoppingCartList']),
         ...mapGetters('userModule',['getUserLogged']),
         isDisabled(){
-            return !this.addNewItem || !this.phone
+            return !this.addNewItem || !this.phone || this.phone.length !== this.limitDigit
         },
         calcularTotal(){
             let suma = this.getShoppingCartList.reduce((acum,data) =>{
@@ -119,7 +120,11 @@ export default {
                 }
                 this.addNewItem(dataAux).then(()=>{
                     this.resetShoppingCart()
-                    Object.assign(this.$data, this.$options.data())
+                    this.$emit('enviarDatosAlertResume', {message: 'Acabas de enviar tu pedido con éxito!', showDangerAlert:true, showSuccessAlert:false})
+                    setTimeout(() => {
+                        this.$emit('enviarDatosAlertResume', {message: '', showDangerAlert:false, showSuccessAlert:false})
+                        Object.assign(this.$data, this.$options.data())
+                    }, 3000);
                 })
             }
         }

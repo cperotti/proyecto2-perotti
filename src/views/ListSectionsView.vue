@@ -8,6 +8,12 @@
           <li class="breadcrumb-item active" aria-current="page">{{this.$route.params.section}}</li>
         </ol>
       </nav>
+      <div v-if="datosAlert.showSuccessAlert" class="alert alert-success" role="alert">
+            {{datosAlert.message}}
+        </div>
+        <div v-if="datosAlert.showDangerAlert" class="alert alert-danger" role="alert">
+           {{datosAlert.message}}
+        </div>
       <div class="row justify-content-end pb-3">
         <div class="col-2">
           <search-component @enviarElementoBuscado="elementoABuscar=$event"/>
@@ -19,7 +25,7 @@
           <div class="container">
           <list-sections :elementoABuscar="elementoABuscar" />
           </div>
-            <pueba-modal />
+            <pueba-modal @enviarDatosAlertNuevoProducto="datosAlert=$event"/>
         </div>
   </section>
 </template>
@@ -41,7 +47,8 @@ export default {
   },
   data() {
     return {
-      elementoABuscar:''
+      elementoABuscar:'',
+      datosAlert:{}
     }
   },
 }

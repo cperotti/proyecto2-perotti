@@ -1,10 +1,15 @@
 <template>
     <div>
-        <div v-if="filterProductsSection.length > 0" class="row row-cols-1 row-cols-md-3 g-4">
-            <card-component v-for="(producto) in filterProductsSection" :key="producto.id" :producto="producto" />
+        <div v-if="datosAlert.showSuccessAlert" class="alert alert-success" role="alert">
+          {{datosAlert.message}}
         </div>
-        <div v-else class="d-flex justify-content-center align-items-center p-3">
-            No hay datos para mostrar
+        <div>
+            <div v-if="filterProductsSection.length > 0" class="row row-cols-1 row-cols-md-3 g-4">
+                <card-component v-for="(producto) in filterProductsSection" :key="producto.id" :producto="producto" @enviarDatosAlertCard="datosAlert=$event" />
+            </div>
+            <div v-else class="d-flex justify-content-center align-items-center p-3">
+                No hay datos para mostrar
+            </div>
         </div>
     </div>
 </template>
@@ -19,7 +24,8 @@ export default {
     name: 'ListComponent',
     data() {
         return {
-            dataProduct:[]
+            dataProduct:[],
+            datosAlert:{}
         }
     },
     created(){

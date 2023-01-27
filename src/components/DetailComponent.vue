@@ -1,5 +1,11 @@
 <template>
     <div class="p-3">
+        <div v-if="showSuccessAlert" class="alert alert-success" role="alert">
+           {{messageSuccessAlert}}
+        </div>
+        <div v-if="showDangerAlert" class="alert alert-danger" role="alert">
+           {{messageDangerAlert}}
+        </div>
         <div class="card h-70 mb-3">
             <div class="row g-0">
                 <div class="col-md-6 d-flex justify-content-center align-items-center flex-column">
@@ -30,12 +36,6 @@
                 </div>
                 </div>
             </div>
-        </div>
-        <div v-if="showSuccessAlert" class="alert alert-success" role="alert">
-           El comentario se guardó con éxito!!
-        </div>
-        <div v-if="showDangerAlert" class="alert alert-danger" role="alert">
-           No se ha podido guardar el comentario. Por favor volvé a intentarlo
         </div>
         <h4>Comentarios</h4>
         <div class="d-grid gap-3">
@@ -71,6 +71,8 @@ export default {
             comentario:'',
             showSuccessAlert:false,
             showDangerAlert:false,
+            messageSuccessAlert:'',
+            messageDangerAlert:''
         }   
     },
     created(){
@@ -91,6 +93,11 @@ export default {
                     cant: 1,
                 }
             this.addShoppingCartItem(dataItem)
+            this.showSuccessAlert=true
+            this.messageSuccessAlert='Agregaste un producto al carrito'
+            setTimeout(() => {
+                Object.assign(this.$data, this.$options.data())
+            }, 3000);
             
         },
         guardarComentario(){
@@ -98,7 +105,7 @@ export default {
                 coment: this.comentario,
                 date: new Date(),
                 user: {
-                    avatar:this.getUserLogged.avantar,
+                    avatar:this.getUserLogged.avatar,
                     firstName: this.getUserLogged.firstName,
                     lastName: this.getUserLogged.lastName,
                 }
@@ -108,12 +115,15 @@ export default {
                 productChanges:{coments:[...this.getProductDetail.coments, coments]}
             }).then(()=> {
                 this.showSuccessAlert=true
+                this.messageSuccessAlert='El comentario se guardó con éxito!!'
              setTimeout(() => {
+                this.fetchProductDetail(this.$route.params.id)
                 Object.assign(this.$data, this.$options.data())
                 }, 3000);
             })
             .catch(()=>{
             this.showDangerAlert=true
+            this.messageDangerAlert='No se ha podido guardar el comentario. Por favor volvé a intentarlo'
             setTimeout(() => {
                 Object.assign(this.$data, this.$options.data())
                 }, 3000);

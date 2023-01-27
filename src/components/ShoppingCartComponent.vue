@@ -1,8 +1,5 @@
 <template>
     <div class="p-3">
-        <div v-if="showSuccessAlert" class="alert alert-success" role="alert">
-           Acabas de quitar el elemento del carrito con éxito!
-        </div>
         <table v-if="getShoppingCartList.length > 0" class="table table-light table-bordered">
             <thead>
                 <tr>
@@ -66,7 +63,6 @@ export default {
     name:'ShoppingCartComponent',
     data() {
         return {
-            showSuccessAlert:false,
             productId:null,
         }
     },
@@ -80,10 +76,10 @@ export default {
             this.productId=id
         },
         eliminarItemCarrito(){
-            console.log('estoy en eliminar')
             this.deleteShoppingCartItem(this.productId)
-            this.showSuccessAlert=true
+            this.$emit('enviarDatosAlertCart', {message: 'Acabas de quitar un elemento del carrito con éxito!', showSuccessAlert:true, showDangerAlert:false})
             setTimeout(() => {
+                this.$emit('enviarDatosAlertCart', {message: '', showSuccessAlert:false, showDangerAlert:false})
                 Object.assign(this.$data, this.$options.data())
                 }, 3000);
         },
