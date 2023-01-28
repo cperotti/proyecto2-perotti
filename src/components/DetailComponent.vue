@@ -76,6 +76,8 @@ export default {
         }   
     },
     created(){
+        const userId = localStorage.getItem('userId');
+        this.fetchUserDetail(userId)
         this.fetchProductDetail(this.$route.params.id)
     },
     computed:{
@@ -85,6 +87,7 @@ export default {
     methods:{
         ...mapMutations('shoppingCartModule',['addShoppingCartItem']),
         ...mapActions('productModule',['fetchProductDetail', 'sendComent']),
+        ...mapActions('userModule', ['fetchUserDetail']),
         comprar(producto){
             const dataItem = {
                     id: producto.id,
@@ -105,9 +108,9 @@ export default {
                 coment: this.comentario,
                 date: new Date(),
                 user: {
-                    avatar:this.getUserLogged.avatar,
-                    firstName: this.getUserLogged.firstName,
-                    lastName: this.getUserLogged.lastName,
+                    avatar:this.getUserLogged?.avatar,
+                    firstName: this.getUserLogged?.firstName,
+                    lastName: this.getUserLogged?.lastName,
                 }
             }
              this.sendComent({

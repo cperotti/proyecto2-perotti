@@ -84,6 +84,10 @@ export default {
             limitDigit:7,
         }
     },
+    created(){
+        const userId = localStorage.getItem('userId');
+        this.fetchUserDetail(userId)
+    },
     computed:{
         ...mapGetters('shoppingCartModule',['getShoppingCartList']),
         ...mapGetters('userModule',['getUserLogged']),
@@ -106,6 +110,7 @@ export default {
     methods:{
         ...mapActions('ordersModule',['addNewItem']),
         ...mapMutations('shoppingCartModule',['resetShoppingCart']),
+        ...mapActions('userModule', ['fetchUserDetail']),
         limpiarModal(){
             Object.assign(this.$data, this.$options.data())
         },
@@ -115,7 +120,7 @@ export default {
                     order: this.getShoppingCartList,
                     adress: this.adress,
                     phone: '221'+ this.phone,
-                    infoUser: this.getUserLogged.email,
+                    infoUser: this.getUserLogged?.email,
                     total: this.calcularTotal
                 }
                 this.addNewItem(dataAux).then(()=>{

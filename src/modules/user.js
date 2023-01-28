@@ -3,7 +3,7 @@ import axios from "axios";
 export default {
     namespaced:true,
     state: {
-        userLogged:null,
+        userLogged:{},
         usersList:[],
       },
       getters: {
@@ -29,6 +29,12 @@ export default {
         fetchUsersList: ({commit}) => {
           const URLGET = 'https://639e6cf43542a261305b9ed0.mockapi.io/usuarios'
           axios.get(URLGET).then((response)=> commit('loadUsersList', response.data))
+        },
+        fetchUserDetail: ({commit},param) => {
+          const URLGET = `https://639e6cf43542a261305b9ed0.mockapi.io/usuarios/${param}`
+          axios.get(URLGET).then((response)=>{
+            commit('setUserLogged',response.data)
+          })
         },
         //consultar los post si estan bien implementados
         saveUserRegister: ({commit},data) =>{

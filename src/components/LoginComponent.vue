@@ -1,8 +1,11 @@
 <template>
     <div class="container gap-3 d-flex justify-content-center align-items-center flex-column container-login">
+    <div v-if="showDangerAlert" class="alert alert-danger w-50" role="alert">
+        No encontramos información que coincida con la que ingresaste. Puede que el mail o la contraseña estén mal escritos. Por favor volvé a intentarlo.
+    </div>
     <div class="card" style="min-width: 25rem;">
         <div class="card-header d-flex justify-content-center">
-        Iniciar sesion
+        Iniciar sesión
         </div>
         <div class="card-body">
             <form @submit.prevent="validarLogin">
@@ -17,10 +20,10 @@
                     <p v-if="errors.password" class="card-text"><small class="text-danger c">{{errors.password}}</small></p>
                 </div>
                 <div class="d-flex justify-content-start">
-                    <div><span>Aun no tenes una cuenta?</span><button @click="irARegistraro" type="button" class="btn btn-link">Registrarte</button></div>
+                    <div><span>Aún no tenes una cuenta?</span><button @click="irARegistraro" type="button" class="btn btn-link">Registrarte</button></div>
                 </div>
                 <div class="d-flex justify-content-end">
-                <button id="liveToastBtn" type="submit" class="btn btn-success">Ingresar</button>
+                <button :disabled="showDangerAlert" type="submit" class="btn btn-success">Ingresar</button>
                 </div>
             </form>
         </div>
@@ -29,7 +32,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters, mapMutations} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 export default {
     name: 'LoginComponent',
     data() {
@@ -39,7 +42,8 @@ export default {
             errors:{
                 email:'',
                 password:''
-            }
+            },
+            showDangerAlert:false
         }
     },
     watch:{
@@ -60,16 +64,20 @@ export default {
     methods:{
         ...mapActions('userModule',['fetchUsersList']),
         ...mapGetters('userModule',['getUsersList']),
-        ...mapMutations('userModule',['setUserLogged']),
         validarLogin(){
             if(this.email && this.password){
                     const dataUser = this.getUsersList().find((user)=> user.email === this.email && user.password === this.password)
                     if(dataUser){
                         this.$router.push('/home')
-                        this.setUserLogged(dataUser)
-                    }
+                        localStorage.setItem('userId',dataUser.id)
+                    }else{
+                        this.showDangerAlert=true
+                        setTimeout(() => {
+                            Object.assign(this.$data, this.$options.data())
+                        }, 5000);
+                    }   
             }
-
+            
             if(!this.email){
                 this.errors = {...this.errors, email:'Debes colocar un email para poder ingresar'} 
             }

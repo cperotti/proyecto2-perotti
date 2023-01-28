@@ -6,8 +6,8 @@
                 <h5 class="card-title">{{producto.name}}</h5>
                 <p class="card-text">Precio ${{producto.price}}</p>
                 <div class="d-flex justify-content-between">
-                <button @click="irADetalle(producto.id)" type="button" class="btn btn-outline-success">Ver detalle</button>
-                <button v-if="!getUserLogged.isAdmin" @click="irAlCarrito(producto)" type="button" class="btn btn-success">Añadir al carrito</button>
+                <button @click="irADetalle(producto.id, producto.type)" type="button" class="btn btn-outline-success">Ver detalle</button>
+                <button v-if="!getUserLogged?.isAdmin" @click="irAlCarrito(producto)" type="button" class="btn btn-success">Añadir al carrito</button>
                 </div>
             </div>
         </div>
@@ -16,19 +16,25 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from 'vuex';
+import { mapMutations, mapGetters, mapActions } from 'vuex';
 export default {
     name:'CardComponent',
     props:{
         producto: Object,
+    },
+    created(){
+        const userId = localStorage.getItem('userId');
+        this.fetchUserDetail(userId)
     },
     computed:{
         ...mapGetters('userModule',['getUserLogged']),
     },
     methods:{
     ...mapMutations('shoppingCartModule',['addShoppingCartItem']),
-        irADetalle(id){
-            this.$router.push(`/productos/${this.$route.params.producto}/${id}`)
+    ...mapActions('userModule', ['fetchUserDetail']),
+        irADetalle(id, type){
+            const auxParam = Object.keys(this.$route.params).length === 0 ? type : this.$route.params.producto
+            this.$router.push(`/productos/${auxParam}/${id}`)
         },
         irAlCarrito(producto){
             const dataItem = {
@@ -41,7 +47,6 @@ export default {
             this.$emit('enviarDatosAlertCard', {message: 'Agregaste un producto al carrito', showSuccessAlert:true,})
             setTimeout(() => {
                 this.$emit('enviarDatosAlertCard', {message: '', showSuccessAlert:false,})
-                Object.assign(this.$data, this.$options.data())
             }, 3000);
         }
     }

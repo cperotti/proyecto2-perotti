@@ -68,7 +68,6 @@ export default {
     },
     computed:{
         ...mapGetters('shoppingCartModule',['getShoppingCartList']),
-        ...mapGetters('userModule',['getUserLogged']),
     },
     methods:{
         ...mapMutations('shoppingCartModule',['deleteShoppingCartItem']),
