@@ -1,5 +1,5 @@
 <template>
-    <div class="tableFixHead">
+    <div class="stickyHeader">
         <table class="table table-light table-bordered">
             <thead>
                 <tr>
@@ -53,7 +53,18 @@ export default {
     border-radius: 50%;
     border: 2px solid darkseagreen
 }
-.tableFixHead { overflow: auto; height: 400px; width: 100%; background-color: white; }
-.tableFixHead thead th { position: sticky; top: 0; z-index: 1; }
-.tableFixHead tbody th { position: sticky; left: 0; }
+.stickyHeader { 
+    overflow: auto; 
+    height: 400px; 
+    width: 100%;
+}
+.stickyHeader thead th { 
+    position: sticky; 
+    top: 0; 
+    z-index: 1; 
+}
+.stickyHeader tbody th { 
+    position: sticky; 
+    left: 0; 
+}
 </style>

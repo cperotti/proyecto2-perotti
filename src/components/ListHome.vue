@@ -1,7 +1,10 @@
 <template>
     <div>
+        <div v-if="datosAlert.showSuccessAlert" class="alert alert-success" role="alert">
+          {{datosAlert.message}}
+        </div>
         <div v-if="getOrdersList.length > 0" class="row row-cols-1 row-cols-md-3 g-4">
-            <card-component v-for="(producto) in getTop3" :key="producto.id" :producto="producto" />
+            <card-component v-for="(producto) in getTop3" :key="producto.id" :producto="producto" @enviarDatosAlertCard="datosAlert=$event" />
         </div>
         <div v-else class="d-flex justify-content-center align-items-center p-3">
             No hay datos para mostrar
@@ -17,6 +20,11 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   components: { CardComponent },
     name: 'ListHome',
+    data() {
+        return {
+             datosAlert:{}
+        }
+    },
     created(){
         this.fetchProductsList()
         this.fetchOrdersList()

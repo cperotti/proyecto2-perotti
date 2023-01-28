@@ -7,7 +7,7 @@
                 <p class="card-text">Precio ${{producto.price}}</p>
                 <div class="d-flex justify-content-between">
                 <button @click="irADetalle(producto.id)" type="button" class="btn btn-outline-success">Ver detalle</button>
-                <button @click="irAlCarrito(producto)" type="button" class="btn btn-success">Añadir al carrito</button>
+                <button v-if="!getUserLogged.isAdmin" @click="irAlCarrito(producto)" type="button" class="btn btn-success">Añadir al carrito</button>
                 </div>
             </div>
         </div>
@@ -16,11 +16,14 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 export default {
     name:'CardComponent',
     props:{
         producto: Object,
+    },
+    computed:{
+        ...mapGetters('userModule',['getUserLogged']),
     },
     methods:{
     ...mapMutations('shoppingCartModule',['addShoppingCartItem']),
