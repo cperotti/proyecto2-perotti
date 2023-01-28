@@ -25,15 +25,41 @@ export default {
         ...mapGetters('ordersModule',['getOrdersList']),
         ...mapGetters('productModule',['getProductsList']),
         getTop3(){
-           this.getOrdersList.forEach(element => {
-                //let objeto = {}
-                console.log('element',element.id)
+            let objeto={}
+            this.getOrdersList.forEach(element => {
                 element.order.map((order)=>{
-                    console.log('order',order.id)
+                    if(Object.keys(objeto).length === 0){
+                        objeto={[order.id]:order.cant}
+                    }else{
+                        if(Object.keys(objeto).includes(order.id.toString())){
+                            objeto={...objeto, [order.id]: objeto[order.id]+order.cant}
+                        }
+
+                        if(!Object.keys(objeto).includes(order.id.toString())){
+                            objeto = {...objeto, [order.id]:order.cant}
+                        }
+                    }
                 })
             });
-
-            return[]
+            let max1 = 0
+            let elemento1 = null
+            let max2 = 0
+            let elemento2 = null
+            let max3 = 0
+            let elemento3 = null
+            Object.keys(objeto).forEach((el)=>{
+                if(objeto[el] > max1){
+                    max1 = objeto[el]
+                    elemento1 = el
+                }else if (objeto[el] > max2) {
+                    max2= objeto[el]
+                    elemento2 = el
+                }else if (objeto[el] > max3) {
+                    max3= objeto[el]
+                    elemento3 = el
+                }
+            })
+            return this.getProductsList.filter((el)=> el.id === elemento1 || el.id === elemento2 || el.id === elemento3)
         }
     },
     methods:{
