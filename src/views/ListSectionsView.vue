@@ -2,12 +2,7 @@
   <section class="section-detail">
         <header-component />
         <div class="container">
-          <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><router-link to="/secciones">Secciones</router-link></li>
-          <li class="breadcrumb-item active" aria-current="page">{{this.$route.params.section}}</li>
-        </ol>
-      </nav>
+          <breadcum-component :breadcumData="breadcumData" :name="this.$route.params.section" />
       <div v-if="datosAlert.showSuccessAlert" class="alert alert-success" role="alert">
             {{datosAlert.message}}
         </div>
@@ -25,7 +20,7 @@
           <div class="container">
           <list-sections :elementoABuscar="elementoABuscar" />
           </div>
-            <pueba-modal @enviarDatosAlertNuevoProducto="datosAlert=$event"/>
+            <modal-agregar-nuevo @enviarDatosAlertNuevoProducto="datosAlert=$event"/>
         </div>
   </section>
 </template>
@@ -34,21 +29,29 @@
 // @ is an alias to /src
 import ListSections from '@/components/ListSections.vue'
 import HeaderComponent from '@/components/HeaderComponent.vue'
-import PuebaModal from '@/components/PuebaModal.vue'
+import ModalAgregarNuevo from '@/components/ModalAgregarNuevo.vue'
 import SearchComponent from '@/components/SearchComponent.vue'
+import BreadcumComponent from '@/components/BreadcumComponent.vue'
 
 export default {
   name: 'ListView',
   components: {
     ListSections,
     HeaderComponent,
-    PuebaModal,
+    ModalAgregarNuevo,
     SearchComponent,
+    BreadcumComponent,
   },
   data() {
     return {
       elementoABuscar:'',
-      datosAlert:{}
+      datosAlert:{},
+      breadcumData:[
+        {
+          name: 'Secciones',
+          link: '/secciones'
+        }
+      ]
     }
   },
 }

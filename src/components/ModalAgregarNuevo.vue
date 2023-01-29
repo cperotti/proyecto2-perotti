@@ -50,6 +50,7 @@
                 </div>
                 <div class="line"></div>
                 <h5 class="pt-3">Detalle</h5>
+                <small v-if="!type">Aparecerán los campos correspondientes cuando se seleccione un tipo de producto</small>
                 <div v-if="type">
                     <div class="pb-3" v-for="(detail, index) in content[type]" :key="index">
                         <div class="d-flex flex-row">
@@ -73,7 +74,7 @@
 <script>
 import { mapActions } from 'vuex'
 export default {
-    name: 'PruebaModal',
+    name: 'ModalAgregarNuevo',
     data() {
         return {
             name:'',
