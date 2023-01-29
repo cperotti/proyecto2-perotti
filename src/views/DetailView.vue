@@ -2,7 +2,10 @@
   <section class="section-detail">
     <header-component />
     <div class="container d-grid gap-3">
-      <breadcum-component :breadcumData="breadcumData" :name="getProductDetail.name" />
+      <breadcum-component v-if="!getUserLogged?.isAdmin" :breadcumData="breadcumData" :name="getProductDetail.name" />
+      <div v-else class="d-flex justify-content-start">
+        <button @click="irAHome" type="button" class="btn btn-link link-dark">Volver al home</button>
+      </div>
       <detail-component />
     </div>
   </section>
@@ -36,7 +39,13 @@ export default {
     }
   },
   computed:{
-    ...mapGetters('productModule',['getProductDetail'])
+    ...mapGetters('productModule',['getProductDetail']),
+    ...mapGetters('userModule', ['getUserLogged'])
+  },
+  methods:{
+    irAHome(){
+      this.$router.push('/home')
+    },
   }
 }
 </script>

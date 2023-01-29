@@ -32,13 +32,13 @@
                         <h5 class="pe-3">Precio</h5>
                         <p>${{getProductDetail.price}}</p>
                     </div>
-                    <button @click="comprar(getProductDetail)" type="button" class="btn btn-success">Añadir al carrito</button>
+                    <button v-if="!getUserLogged?.isAdmin" @click="comprar(getProductDetail)" type="button" class="btn btn-success">Añadir al carrito</button>
                 </div>
                 </div>
             </div>
         </div>
         <h4>Comentarios</h4>
-        <div class="d-grid gap-3">
+        <div v-if="!getUserLogged?.isAdmin" class="d-grid gap-3">
             <textarea v-model="comentario" class="form-control" id="areaComentarios" placeholder="Escribi un comentario" rows="3"></textarea>
             <div class="d-flex justify-content-end">
                 <button v-if="comentario" @click="guardarComentario" type="button" class="btn btn-success" >Comentar</button>
