@@ -2,12 +2,7 @@
   <section class="section-detail">
         <header-component />
         <div class="container">
-          <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><router-link to="/productos">Productos</router-link></li>
-          <li class="breadcrumb-item active" aria-current="page">{{this.$route.params.producto}}</li>
-        </ol>
-      </nav>
+          <breadcum-component :breadcumData="breadcumData" :name="this.$route.params.producto" />
       <div class="row justify-content-end">
         <div class="col-2 pb-3">
           <search-component @enviarElementoBuscado="elementoABuscar=$event" />
@@ -25,17 +20,25 @@
 import ListComponent from '@/components/ListComponent.vue'
 import HeaderComponent from '@/components/HeaderComponent.vue'
 import SearchComponent from '@/components/SearchComponent.vue'
+import BreadcumComponent from '@/components/BreadcumComponent.vue'
 
 export default {
   name: 'ListView',
   components: {
     ListComponent,
     HeaderComponent,
-    SearchComponent
+    SearchComponent,
+    BreadcumComponent
   },
   data() {
     return {
-      elementoABuscar:''
+      elementoABuscar:'',
+      breadcumData:[
+        {
+          name: 'Productos',
+          link: '/productos'
+        }
+      ]
     }
   },
 }

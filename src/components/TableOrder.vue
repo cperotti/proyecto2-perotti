@@ -38,31 +38,19 @@
             </tbody>
         </table>
     </div>
-      <div class="modal fade" tabindex="-1" id="modalEliminar" aria-labelledby="modalEliminarLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Eliminar pedido</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Estas seguro que deseas eliminar este pedido? Esta acción indica que ya ha sido entregado</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Cancelar</button>
-        <button @click="eliminarPedido" type="button" class="btn btn-success" data-bs-dismiss="modal" >Eliminar</button>
-      </div>
-    </div>
-  </div>
-</div>
+    <modal-eliminar :eliminarItem="eliminarPedido" :dataModal="dataModal" />
 </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import moment from 'moment'
+import ModalEliminar from './ModalEliminar.vue';
 export default {
     name: 'TableOrder',
+    components:{
+        ModalEliminar,
+    },
     props:{
         elementoABuscar: String
     },
@@ -73,6 +61,11 @@ export default {
             messageAlertSuccess:'',
             messageAlertDanger:'',
             productId:null,
+            dataModal:{
+                title:'Eliminar pedido',
+                body:'Estás seguro que deseas eliminar este pedido? Esta acción indica que ya ha sido entregado',
+                buttonName:'Eliminar'
+            }
         }
     },
     created(){

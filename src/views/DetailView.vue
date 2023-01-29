@@ -2,7 +2,7 @@
   <section class="section-detail">
     <header-component />
     <div class="container d-grid gap-3">
-      <breadcum-component/>
+      <breadcum-component :breadcumData="breadcumData" :name="getProductDetail.name" />
       <detail-component />
     </div>
   </section>
@@ -12,6 +12,7 @@
 import DetailComponent from '@/components/DetailComponent.vue'
 import HeaderComponent from '@/components/HeaderComponent.vue'
 import BreadcumComponent from '@/components/BreadcumComponent.vue'
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'DetailView',
@@ -20,6 +21,23 @@ export default {
     HeaderComponent,
     BreadcumComponent
   },
+  data() {
+    return {
+      breadcumData:[
+        {
+          name:'Productos',
+          link:'/productos'
+        },
+        {
+          name:this.$route.params.producto,
+          link:`/productos/${this.$route.params.producto}`
+        },
+      ]
+    }
+  },
+  computed:{
+    ...mapGetters('productModule',['getProductDetail'])
+  }
 }
 </script>
 

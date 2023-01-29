@@ -3,7 +3,7 @@
        <header-component/>
        <div class="container">
         <welcome-text />
-        <card-sale />
+        <card-sale v-if="!getUserLogged.isAdmin" />
         <h4 class="text-center pb-3">Estos son nuestros 3 productos mas vendidos!</h4>
         <list-component />
        </div>
@@ -15,6 +15,7 @@ import HeaderComponent from '@/components/HeaderComponent.vue';
 import ListComponent from '@/components/ListComponent.vue';
 import WelcomeText from '@/components/WelcomeText.vue';
 import CardSale from '@/components/CardSale.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'HomeView',
@@ -23,6 +24,9 @@ export default {
     ListComponent,
     WelcomeText,
     CardSale,
+  },
+  computed:{
+    ...mapGetters('userModule',['getUserLogged'])
   },
 }
 </script>

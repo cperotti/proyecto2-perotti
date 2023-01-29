@@ -5,9 +5,12 @@
             <div class="card-body">
                 <h5 class="card-title">{{producto.name}}</h5>
                 <p class="card-text">Precio ${{producto.price}}</p>
-                <div class="d-flex justify-content-between">
+                <div v-if="!getUserLogged?.isAdmin" class="d-flex justify-content-between">
                 <button @click="irADetalle(producto.id, producto.type)" type="button" class="btn btn-outline-success">Ver detalle</button>
-                <button v-if="!getUserLogged?.isAdmin" @click="irAlCarrito(producto)" type="button" class="btn btn-success">Añadir al carrito</button>
+                <button @click="irAlCarrito(producto)" type="button" class="btn btn-success">Añadir al carrito</button>
+                </div>
+                <div v-else class="d-flex justify-content-end">
+                    <button @click="irADetalle(producto.id, producto.type)" type="button" class="btn btn-success">Ver detalle</button>
                 </div>
             </div>
         </div>
