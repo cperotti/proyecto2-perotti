@@ -4,7 +4,7 @@
         <div class="container">
     <div class="d-flex justify-content-center align-items-center flex-column sections-container">
       <div class="row row-cols-1 row-cols-md-3 g-4">
-            <cards-modules v-for="(mod) in moduleList" :key="mod.id" :modulo="mod" />
+            <cards-modules v-for="(mod) in moduleList" :key="mod.id" :modulo="mod" :irAModulo="irASeccion"/>
 </div>
     </div>
         </div>
@@ -41,7 +41,12 @@ export default {
         }
       ]
     }
-  }
+  },
+  methods: {
+    irASeccion(mod){
+      this.$router.push(`/secciones/${mod}`)
+    }
+  },
 }
 </script>
 

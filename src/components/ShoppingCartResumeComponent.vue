@@ -125,7 +125,14 @@ export default {
                 }
                 this.addNewItem(dataAux).then(()=>{
                     this.resetShoppingCart()
-                    this.$emit('enviarDatosAlertResume', {message: 'Acabas de enviar tu pedido con éxito!', showDangerAlert:true, showSuccessAlert:false})
+                    this.$emit('enviarDatosAlertResume', {message: 'Acabas de enviar tu pedido con éxito!', showDangerAlert:false, showSuccessAlert:true})
+                    setTimeout(() => {
+                        this.$emit('enviarDatosAlertResume', {message: '', showDangerAlert:false, showSuccessAlert:false})
+                        Object.assign(this.$data, this.$options.data())
+                    }, 3000);
+                })
+                .catch(()=>{
+                    this.$emit('enviarDatosAlertResume', {message: 'Ocurrió un error al realizar el envio. Por favor volvé a intentarlo', showDangerAlert:true, showSuccessAlert:false})
                     setTimeout(() => {
                         this.$emit('enviarDatosAlertResume', {message: '', showDangerAlert:false, showSuccessAlert:false})
                         Object.assign(this.$data, this.$options.data())

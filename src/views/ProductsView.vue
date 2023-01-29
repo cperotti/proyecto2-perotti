@@ -1,24 +1,24 @@
 <template>
-<section class="section-detail">
-    <header-component/>
-    <div class="container">
-    <div class="d-flex justify-content-center align-items-center flex-column products-container">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <cards-type-product-component v-for="(type) in listTypeProducts" :key="type.id" :type="type" />
-</div>
-    </div>
-    </div>
-</section>
+  <section class="section-detail">
+      <header-component/>
+      <div class="container">
+        <div class="d-flex justify-content-center align-items-center flex-column products-container">
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+            <cards-modules v-for="(mod) in listTypeProducts" :key="mod.id" :modulo="mod" :irAModulo="irAProducto" />
+          </div>
+        </div>
+      </div>
+  </section>
 </template>
 
 <script>
 import HeaderComponent from '@/components/HeaderComponent.vue'
-import CardsTypeProductComponent from '@/components/CardsTypeProductComponent.vue'
+import CardsModules from '@/components/CardsModules.vue'
 
 export default {
   components: { 
     HeaderComponent,
-    CardsTypeProductComponent,
+    CardsModules,
    },
   name: 'ProductsView',
 
@@ -27,19 +27,27 @@ export default {
         listTypeProducts:[
     {
         id:'plantas',
-        name:'Plantas'
+        name:'Plantas',
+        image: "https://previews.123rf.com/images/olyaperpetuummobile/olyaperpetuummobile1712/olyaperpetuummobile171200002/90834622-monochrome-funny-garden-seamless-pattern-dark-green-color-outline-on-white-background-cartoon-doodle.jpg"
     },
     {
         id:'semillas',
-        name:'Semillas'
+        name:'Semillas',
+        image: "https://previews.123rf.com/images/olyaperpetuummobile/olyaperpetuummobile1712/olyaperpetuummobile171200002/90834622-monochrome-funny-garden-seamless-pattern-dark-green-color-outline-on-white-background-cartoon-doodle.jpg"
     },
     {
         id:'herramientas',
-        name:'Herramientas'
+        name:'Herramientas',
+        image: "https://previews.123rf.com/images/olyaperpetuummobile/olyaperpetuummobile1712/olyaperpetuummobile171200002/90834622-monochrome-funny-garden-seamless-pattern-dark-green-color-outline-on-white-background-cartoon-doodle.jpg"
     }
   ]
     }
-  }
+  },
+  methods: {
+    irAProducto(prod){
+      this.$router.push(`/productos/${prod}`)
+    }
+  },
 }
 </script>
 
